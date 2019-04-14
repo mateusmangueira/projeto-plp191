@@ -255,10 +255,6 @@ void visualizarBaralhos() {
 	herois[12] = deadPool;
 	herois[13] = vespa;
 	herois[14] = mulherMaravilha;
-
-	cout << homemAranha.nome << endl;
-	cout << homemAranha.forcaBruta << endl;
-	cout << homemAranha.habilidade << endl;
 }
 
 
