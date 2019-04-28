@@ -30,14 +30,3 @@ menuInicial = do
     else if opcao == "4" then clearScreen
         else
             menuInicial
-
-   
-{-
-ganhaCarta :: Carta.Carta -> Pilha.Stack Carta.Carta -> Pilha.Stack Carta.Carta
-ganhaCarta carta pilha = do
-  let (carta_removida,pilha_temp1) = Pilha.pop pilha
-  let pilha_temp2 = Pilha.invertePilha pilha_temp1
-  let pilha_temp3 = Pilha.push carta_removida pilha_temp2
-  let pilha_temp4 = Pilha.push carta pilha_temp3
-  Pilha.invertePilha pilha_temp4
--}
