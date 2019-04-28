@@ -13,13 +13,13 @@ leAtributo = do
   atributo <- getLine
   if (verificaAtributo atributo) then return atributo else leAtributo
   
-escolheAtributo :: Int -> String
+escolheAtributo :: Carta.Carta -> String
 escolheAtributo carta = do
-  let vit = Carta.vitalidade
-  let int = Carta.inteligencia
-  let for = Carta.forcaBruta
-  let vel = Carta.velocidade
-  let hab = Carta.habilidade
+  let vit = Carta.vitalidade carta
+  let int = Carta.inteligencia carta
+  let for = Carta.forcaBruta carta
+  let vel = Carta.velocidade carta
+  let hab = Carta.habilidade carta
 
   escolherAtributoAuxiliar vit int for vel hab
   

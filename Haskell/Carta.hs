@@ -1,6 +1,6 @@
 module Carta where
 
-data Carta = Carta {nome :: String, id :: Int, vitalidade :: Int, inteligencia :: Int, forcaBruta :: Int, velocidade :: Int, habilidade :: Int, especial :: Bool
+data Carta = Carta {nome :: String, vitalidade :: Int, inteligencia :: Int, forcaBruta :: Int, velocidade :: Int, habilidade :: Int, especial :: Bool
                          } deriving (Show)  
                           
 descricaoCarta:: Carta -> String
