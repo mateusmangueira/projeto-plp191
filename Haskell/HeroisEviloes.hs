@@ -53,6 +53,7 @@ menuInicial = do
       putStrLn("->Marca 1 ponto quem tiver maior atributo")
       putStrLn("->As duas cartas que batalharam são removidas do jogo")
       putStrLn("->Quando acabarem as cartas quem tiver mais ponto vence o jogo.")
+      putStrLn("")
       menuInicial
     
     else if opcao == "4" then clearScreen
