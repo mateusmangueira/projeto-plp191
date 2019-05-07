@@ -22,6 +22,7 @@ menuInicial = do
     opcao <- getLine
 
     if opcao == "1" then do
+      clearScreen
       let cartasHerois = Auxiliar.iniciarCartasHerois
       deckHerois <- shuffleM cartasHerois
       let cartaViloes = Auxiliar.iniciarCartasViloes
@@ -31,17 +32,43 @@ menuInicial = do
       let lista_herois = take 15 deckHerois
       let lista_viloes = take 15 deckViloes
       let pilha_herois = Auxiliar.iniciarPilha lista_herois
-      let pilha_herois = Auxiliar.iniciarPilha lista_viloes
+      let pilha_viloes = Auxiliar.iniciarPilha lista_viloes
       putStrLn (">>> PILHAS MONTADAS <<<")
+
+      --gameLoop atributo pilha_herois pilha_viloes 1
       
     
-    else if opcao == "2" then putStrLn("FALTA IMPLEMENTAR... Visualizar Baralhos...")
+    else if opcao == "2" then do
+      clearScreen
+      --visualizarBaralho deckEscolhido
 
-    else if opcao == "3" then putStrLn("FALTA IMPLEMENTAR... Mostrar Regras...")
+    else if opcao == "3" then do
+      putStrLn("\nAs regras do jogo sao as seguintes:")
+      putStrLn("->O jogador e a máquina irão alternar turnos")
+      putStrLn("->O jogador puxa aleatoriamente 3 cartas das 15 do seu baralho")
+      putStrLn("->Escolhe 1 para colocar em combate")
+      putStrLn("->O mesmo serve para a máquina")
+      putStrLn("->As outras 2 nao escolhidas retornam ao deck")
+      putStrLn("->Em cada turno escolhe um atributo para a batalha")
+      putStrLn("->Marca 1 ponto quem tiver maior atributo")
+      putStrLn("->As duas cartas que batalharam são removidas do jogo")
+      putStrLn("->Quando acabarem as cartas quem tiver mais ponto vence o jogo.")
+      menuInicial
     
     else if opcao == "4" then clearScreen
         else
             menuInicial
+
+
+
+--gameLoop :: Int -> Pilha.Stack Carta.Carta -> Pilha.Stack Carta.Carta -> Int -> IO()
+--gameLoop atributo pilha1 pilha2 rodadaAtual = do
+  --clearScreen
+  --if Pilha.empty pilha1 then putStrLn ("FIM DE JOGO - MÁQUINA VENCEU!! \nTOTAL DE RODADAS: " ++ show(rodadaAtual))
+  --else if Pilha.empty pilha2 then putStrLn ("FIM DE JOGO - VOCE VENCEU!! \nTOTAL DE RODADAS: " ++ show(rodadaAtual))
+  --else do
+    --let carta_p1 = Pilha.peek pilha1
+    --let carta_p2 = Pilha.peek pilha2
 
 
 ganhaCarta :: Carta.Carta -> Pilha.Stack Carta.Carta -> Pilha.Stack Carta.Carta
