@@ -8,7 +8,7 @@ import System.Random.Shuffle
 
 main :: IO()
 main = do
-  putStrLn ("HEROIS E VILOES - SUPER TRUNFO")
+  putStrLn (Auxiliar.exibeLetreiro)
   menuInicial
 
 opcoesMenu :: String

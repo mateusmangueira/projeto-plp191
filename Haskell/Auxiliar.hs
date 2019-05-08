@@ -5,6 +5,9 @@ import System.IO.Unsafe(unsafeDupablePerformIO)
 import System.Random
 import Data.List.Split
 
+exibeLetreiro :: String
+exibeLetreiro = unsafeDupablePerformIO (readFile "letreiro.txt")
+
 atributos :: String
 atributos = "[VITALIDADE | INTELIGENCIA | FORCA_BRUTA | VELOCIDADE | HABILIDADE]"
 
