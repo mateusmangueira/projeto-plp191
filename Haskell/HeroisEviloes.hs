@@ -12,7 +12,7 @@ main = do
   menuInicial
 
 opcoesMenu :: String
-opcoesMenu = "Escolha uma Opcão: \n1) Jogar \n2) Visualizar Baralhos \n3) Regras \n4) Sair"
+opcoesMenu = "\nEscolha uma Opcão: \n1) Jogar \n2) Visualizar Baralhos \n3) Regras \n4) Sair"
   
 
 menuInicial :: IO()
@@ -28,20 +28,19 @@ menuInicial = do
       let cartaViloes = Auxiliar.iniciarCartasViloes
       deckViloes <- shuffleM cartaViloes
       putStrLn (">>> CARTAS EMBARALHADAS <<<")
-      
+    
       let lista_herois = take 15 deckHerois
       let lista_viloes = take 15 deckViloes
       let pilha_herois = Auxiliar.iniciarPilha lista_herois
       let pilha_viloes = Auxiliar.iniciarPilha lista_viloes
       putStrLn (">>> PILHAS MONTADAS <<<")
 
-      --gameLoop atributo pilha_herois pilha_viloes 1
-      
-    
+      --gameLoop atributo pilha_herois pilha_viloes 1 0 0
+
     else if opcao == "2" then do
       clearScreen
-      --visualizarBaralho deckEscolhido
-
+      putStrLn("Visualizar Baralhos")
+      
     else if opcao == "3" then do
       putStrLn("\nAs regras do jogo sao as seguintes:")
       putStrLn("->O jogador e a máquina irão alternar turnos")
@@ -60,17 +59,15 @@ menuInicial = do
         else
             menuInicial
 
-
-
---gameLoop :: Int -> Pilha.Stack Carta.Carta -> Pilha.Stack Carta.Carta -> Int -> IO()
---gameLoop atributo pilha1 pilha2 rodadaAtual = do
+--gameLoop :: Int -> Pilha.Stack Carta.Carta -> Pilha.Stack Carta.Carta -> Int -> Int -> Int -> IO()
+--gameLoop atributo pilha1 pilha2 rodadaAtual scoreJogador scoreMaquina = do
   --clearScreen
   --if Pilha.empty pilha1 then putStrLn ("FIM DE JOGO - MÁQUINA VENCEU!! \nTOTAL DE RODADAS: " ++ show(rodadaAtual))
   --else if Pilha.empty pilha2 then putStrLn ("FIM DE JOGO - VOCE VENCEU!! \nTOTAL DE RODADAS: " ++ show(rodadaAtual))
-  --else do
-    --let carta_p1 = Pilha.peek pilha1
-    --let carta_p2 = Pilha.peek pilha2
-
+    --else do
+      --let carta_p1 = Pilha.peek pilha1
+      --let carta_p2 = Pilha.peek pilha2
+ 
 
 ganhaCarta :: Carta.Carta -> Pilha.Stack Carta.Carta -> Pilha.Stack Carta.Carta
 ganhaCarta carta pilha = do
