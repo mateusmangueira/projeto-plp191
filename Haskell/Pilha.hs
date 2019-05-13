@@ -9,7 +9,7 @@ push :: a -> Stack a -> Stack a
 push = (:)
      
 pop :: Stack a -> (a, Stack a)
-pop []     = error "Stack empty"
+pop [] = error "Pilha vazia."
 pop (x:xs) = (x,xs)
      
 empty :: Stack a -> Bool
@@ -19,8 +19,8 @@ size :: Stack a -> Int
 size pilha = length pilha
      
 peek :: Stack a -> a
-peek []    = error "Stack empty"
+peek [] = error "Pilha vazia."
 peek (x:_) = x
-    
+
 invertePilha :: Stack a -> Stack a
 invertePilha pilha = reverse pilha

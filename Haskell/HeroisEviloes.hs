@@ -13,12 +13,25 @@ main = do
 
 opcoesMenu :: String
 opcoesMenu = "\nEscolha uma Opcão: \n1) Jogar \n2) Visualizar Baralhos \n3) Regras \n4) Sair"
-  
+
+menuVisualizaBaralho :: IO()
+menuVisualizaBaralho = do
+  putStrLn("\nVocê deseja visualizar qual baralho: \n1) Heróis \n2) Vilões")
+  deck <- getLine
+  if(deck == "1") then do
+      putStrLn("Funcao para imprimir lista de herois")
+    --putStrLn(Auxiliar.imprimeLista listaHerois)
+  else if(deck == "2") then do
+       putStrLn("Funcao para imprimir lista de viloes")
+     --putStrLn(Auxiliar.imprimeLista listaViloes)
+  else do 
+    putStrLn("Digite uma opção válida.")
+    menuVisualizaBaralho
 
 menuInicial :: IO()
 menuInicial = do
     putStrLn(opcoesMenu)
-    putStrLn("Digite aqui sua opcao:")
+    putStrLn("Digite aqui sua opção: ")
     opcao <- getLine
 
     if opcao == "1" then do
@@ -27,22 +40,40 @@ menuInicial = do
       deckHerois <- shuffleM cartasHerois
       let cartaViloes = Auxiliar.iniciarCartasViloes
       deckViloes <- shuffleM cartaViloes
-      putStrLn (">>> CARTAS EMBARALHADAS <<<")
+      putStrLn ("Você deseja jogar com:  \n1) Heróis \n2) Vilões")
+      baralho <- getLine
+      if(baralho == "1") then do
+        let listaHerois = take 15 deckHerois
+        let listaViloes = take 15 deckViloes
+        let pilhaHerois = Auxiliar.iniciarPilha listaHerois
+        let pilhaViloes = Auxiliar.iniciarPilha listaViloes
+        let heroi1 = Pilha.peek pilhaHerois
+        --let heroi2 = ?? funcao next para pegar o proximo elemento da pilha
+        --let heroi3 = ?? 
+        let vilao1 = Pilha.peek pilhaViloes
+        --let vilao2 = ??
+        --let vilao3 = ??
+
+        clearScreen
+
+        putStrLn(Carta.descricaoCarta(heroi1))
+        --putStrLn(Carta.descricaoCarta(heroi2))
+        --putStrLn(Carta.descricaoCarta(heroi3))
     
-      let lista_herois = take 15 deckHerois
-      let lista_viloes = take 15 deckViloes
-      let pilha_herois = Auxiliar.iniciarPilha lista_herois
-      let pilha_viloes = Auxiliar.iniciarPilha lista_viloes
-      putStrLn (">>> PILHAS MONTADAS <<<")
-
-      --gameLoop atributo pilha_herois pilha_viloes 1 0 0
-
+      else do
+        let listaViloes = take 15 deckViloes
+        let pilhaViloes = Auxiliar.iniciarPilha listaViloes
+        putStrLn (">>> PILHAS DOS VILÕES MONTADAS <<<")
+        putStrLn("")
+        let vilao = Pilha.peek pilhaViloes
+        putStrLn(Carta.descricaoCarta(vilao))
+        
     else if opcao == "2" then do
       clearScreen
-      putStrLn("Visualizar Baralhos")
-      
+      menuVisualizaBaralho
+
     else if opcao == "3" then do
-      putStrLn("\nAs regras do jogo sao as seguintes:")
+      putStrLn("\nAs regras do jogo são as seguintes:")
       putStrLn("->O jogador e a máquina irão alternar turnos")
       putStrLn("->O jogador puxa aleatoriamente 3 cartas das 15 do seu baralho")
       putStrLn("->Escolhe 1 para colocar em combate")
@@ -52,6 +83,7 @@ menuInicial = do
       putStrLn("->Marca 1 ponto quem tiver maior atributo")
       putStrLn("->As duas cartas que batalharam são removidas do jogo")
       putStrLn("->Quando acabarem as cartas quem tiver mais ponto vence o jogo.")
+      putStrLn("->Cartas especiais concederá o dobro de pontos para o vencedor do turno.")
       putStrLn("")
       menuInicial
     
@@ -59,20 +91,3 @@ menuInicial = do
         else
             menuInicial
 
---gameLoop :: Int -> Pilha.Stack Carta.Carta -> Pilha.Stack Carta.Carta -> Int -> Int -> Int -> IO()
---gameLoop atributo pilha1 pilha2 rodadaAtual scoreJogador scoreMaquina = do
-  --clearScreen
-  --if Pilha.empty pilha1 then putStrLn ("FIM DE JOGO - MÁQUINA VENCEU!! \nTOTAL DE RODADAS: " ++ show(rodadaAtual))
-  --else if Pilha.empty pilha2 then putStrLn ("FIM DE JOGO - VOCE VENCEU!! \nTOTAL DE RODADAS: " ++ show(rodadaAtual))
-    --else do
-      --let carta_p1 = Pilha.peek pilha1
-      --let carta_p2 = Pilha.peek pilha2
- 
-
-ganhaCarta :: Carta.Carta -> Pilha.Stack Carta.Carta -> Pilha.Stack Carta.Carta
-ganhaCarta carta pilha = do
-  let (carta_removida,pilha_temp1) = Pilha.pop pilha
-  let pilha_temp2 = Pilha.invertePilha pilha_temp1
-  let pilha_temp3 = Pilha.push carta_removida pilha_temp2
-  let pilha_temp4 = Pilha.push carta pilha_temp3
-  Pilha.invertePilha pilha_temp4

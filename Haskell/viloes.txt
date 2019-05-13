@@ -12,4 +12,4 @@ Duende Verde,47,58,32,55,41,False
 Caveira Vermelha,31,58,66,34,11,False
 Venom,72,37,55,28,19,False
 Coringa,31,78,24,20,37,False
-Mistica,51,57,38,27,61,False
+Mística,51,57,38,27,61,False
