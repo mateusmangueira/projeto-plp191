@@ -28,6 +28,22 @@ menuVisualizaBaralho = do
     putStrLn("Digite uma opção válida.")
     menuVisualizaBaralho
 
+menuMostraRegras :: IO()
+menuMostraRegras = do
+  putStrLn("\nAs regras do jogo são as seguintes:")
+  putStrLn("->O jogador e a máquina irão alternar turnos")
+  putStrLn("->O jogador puxa aleatoriamente 3 cartas das 15 do seu baralho")
+  putStrLn("->Escolhe 1 para colocar em combate")
+  putStrLn("->O mesmo serve para a máquina")
+  putStrLn("->As outras 2 nao escolhidas retornam ao deck")
+  putStrLn("->Em cada turno escolhe um atributo para a batalha")
+  putStrLn("->Marca 1 ponto quem tiver maior atributo")
+  putStrLn("->Cartas especiais concederá o dobro de pontos para o vencedor do turno.")
+  putStrLn("->As duas cartas que batalharam são removidas do jogo")
+  putStrLn("->Quando acabarem as cartas quem tiver mais ponto vence o jogo.")
+  putStrLn("")
+  menuInicial
+
 menuInicial :: IO()
 menuInicial = do
     putStrLn(opcoesMenu)
@@ -73,20 +89,9 @@ menuInicial = do
       menuVisualizaBaralho
 
     else if opcao == "3" then do
-      putStrLn("\nAs regras do jogo são as seguintes:")
-      putStrLn("->O jogador e a máquina irão alternar turnos")
-      putStrLn("->O jogador puxa aleatoriamente 3 cartas das 15 do seu baralho")
-      putStrLn("->Escolhe 1 para colocar em combate")
-      putStrLn("->O mesmo serve para a máquina")
-      putStrLn("->As outras 2 nao escolhidas retornam ao deck")
-      putStrLn("->Em cada turno escolhe um atributo para a batalha")
-      putStrLn("->Marca 1 ponto quem tiver maior atributo")
-      putStrLn("->As duas cartas que batalharam são removidas do jogo")
-      putStrLn("->Quando acabarem as cartas quem tiver mais ponto vence o jogo.")
-      putStrLn("->Cartas especiais concederá o dobro de pontos para o vencedor do turno.")
-      putStrLn("")
-      menuInicial
-    
+      clearScreen
+      menuMostraRegras
+
     else if opcao == "4" then clearScreen
         else
             menuInicial
