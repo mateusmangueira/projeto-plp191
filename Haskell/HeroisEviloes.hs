@@ -1,5 +1,4 @@
 import qualified Auxiliar as Auxiliar
-import qualified Pilha as Pilha
 import qualified Carta as Carta
 import Control.Concurrent
 import System.Console.ANSI
@@ -61,28 +60,66 @@ menuInicial = do
       if(baralho == "1") then do
         let listaHerois = take 15 deckHerois
         let listaViloes = take 15 deckViloes
-        let pilhaHerois = Auxiliar.iniciarPilha listaHerois
-        let pilhaViloes = Auxiliar.iniciarPilha listaViloes
-        let heroi1 = Pilha.peek pilhaHerois
-        --let heroi2 = ?? funcao next para pegar o proximo elemento da pilha
-        --let heroi3 = ?? 
-        let vilao1 = Pilha.peek pilhaViloes
-        --let vilao2 = ??
-        --let vilao3 = ??
-
+        let heroi1 = listaHerois !! 0
+        let heroi2 = listaHerois !! 1
+        let heroi3 = listaHerois !! 2
+      
         clearScreen
 
-        putStrLn(Carta.descricaoCarta(heroi1))
-        --putStrLn(Carta.descricaoCarta(heroi2))
-        --putStrLn(Carta.descricaoCarta(heroi3))
+        putStrLn("Primeira Carta\n" ++ Carta.descricaoCarta(heroi1))
+        putStrLn("Segunda Carta\n" ++ Carta.descricaoCarta(heroi2))
+        putStrLn("Terceira Carta\n" ++ Carta.descricaoCarta(heroi3))
+
+        putStrLn("Deseja batalhar com qual carta: \n1) Primeira Carta\n2) Segunda Carta\n3) Terceira Carta" )
+
+        escolha <- getLine
+        if(escolha == "1") then do
+          let cartaEscolhida = listaHerois !! 0
+          putStrLn("\nA carta escolhida foi: \n" ++ Carta.descricaoCarta(cartaEscolhida))
+          putStrLn("Agora digite seu atributo para batalha: \nVITALIDADE\nINTELIGENCIA\nFORCA\nVELOCIDADE\nHABILIDADE\n")
+        else if (escolha == "2") then do
+          let cartaEscolhida = listaHerois !! 1
+          putStrLn("\nA carta escolhida foi: \n" ++ Carta.descricaoCarta(cartaEscolhida))
+          putStrLn("Agora digite seu atributo para batalha: \nVITALIDADE\nINTELIGENCIA\nFORCA\nVELOCIDADE\nHABILIDADE\n")
+        else if (escolha == "3") then do
+          let cartaEscolhida = listaHerois !! 2
+          putStrLn("\nA carta escolhida foi: \n" ++ Carta.descricaoCarta(cartaEscolhida))
+          putStrLn("Agora digite seu atributo para batalha: \nVITALIDADE\nINTELIGENCIA\nFORCA\nVELOCIDADE\nHABILIDADE\n")
+        else do
+          putStrLn("Entrada invalida")
     
       else do
         let listaViloes = take 15 deckViloes
-        let pilhaViloes = Auxiliar.iniciarPilha listaViloes
-        putStrLn (">>> PILHAS DOS VILÕES MONTADAS <<<")
-        putStrLn("")
-        let vilao = Pilha.peek pilhaViloes
-        putStrLn(Carta.descricaoCarta(vilao))
+        let listaHerois = take 15 deckHerois
+        let vilao1 = listaViloes !! 0
+        let vilao2 = listaViloes !! 1
+        let vilao3 = listaViloes !! 2
+        
+        clearScreen
+        putStrLn("SUAS CARTAS PARA BATALHA: \n")
+        
+        putStrLn("Primeira Carta\n" ++ Carta.descricaoCarta(vilao1))
+        putStrLn("Segunda Carta\n" ++ Carta.descricaoCarta(vilao2))
+        putStrLn("Terceira Carta\n" ++ Carta.descricaoCarta(vilao3))
+
+        putStrLn("Deseja batalhar com qual carta: \n1) Primeira Carta\n2) Segunda Carta\n3) Terceira Carta" )
+
+        escolha <- getLine
+        if(escolha == "1") then do
+          let cartaEscolhida = listaViloes !! 0
+          putStrLn("\nA carta escolhida foi: \n" ++ Carta.descricaoCarta(cartaEscolhida))
+          putStrLn("Agora digite seu atributo para batalha: \nVITALIDADE\nINTELIGENCIA\nFORCA\nVELOCIDADE\nHABILIDADE\n")
+    
+        else if (escolha == "2") then do
+          let cartaEscolhida = listaViloes !! 1
+          putStrLn("\nA carta escolhida foi: \n" ++ Carta.descricaoCarta(cartaEscolhida))
+          putStrLn("Agora digite seu atributo para batalha: \nVITALIDADE\nINTELIGENCIA\nFORCA\nVELOCIDADE\nHABILIDADE\n")
+        else if (escolha == "3") then do
+          let cartaEscolhida = listaViloes !! 2
+          putStrLn("\nA carta escolhida foi: \n" ++ Carta.descricaoCarta(cartaEscolhida))
+          putStrLn("Agora digite seu atributo para batalha: \nVITALIDADE\nINTELIGENCIA\nFORCA\nVELOCIDADE\nHABILIDADE\n")
+        else do
+          putStrLn("Entrada invalida")
         
     else if opcao == "2" then do
       clearScreen
@@ -93,6 +130,5 @@ menuInicial = do
       menuMostraRegras
 
     else if opcao == "4" then clearScreen
-        else
-            menuInicial
+        else menuInicial
 

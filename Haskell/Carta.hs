@@ -12,7 +12,7 @@ module Carta where
                                                   "Forca: " ++ show(for) ++ "\n" ++
                                                   "Velocidade: " ++ show(vel) ++ "\n" ++
                                                   "Habilidade: " ++  show(hab) ++ "\n" ++
-                                                  if esp then "CARTA ESPECIAL" else ""
+                                                  if esp then "CARTA ESPECIAL\n" else ""
   
   
                                                   
@@ -32,9 +32,9 @@ module Carta where
     | (atributo) == "INTELIGENCIA" && (inteligencia1 - inteligencia2) > 0 = 1
     | (atributo) == "INTELIGENCIA" && (inteligencia1 - inteligencia2) < 0 = -1
     | (atributo) == "INTELIGENCIA" && (inteligencia1 - inteligencia2) == 0 = desempata carta1 carta2
-    | (atributo) == "FORCA_BRUTA" && (forcaBruta1 - forcaBruta2) > 0 = 1
-    | (atributo) == "FORCA_BRUTA" && (forcaBruta1 - forcaBruta2) < 0 = -1
-    | (atributo) == "FORCA_BRUTA" && (forcaBruta1 - forcaBruta2) == 0 = desempata carta1 carta2
+    | (atributo) == "FORCA" && (forcaBruta1 - forcaBruta2) > 0 = 1
+    | (atributo) == "FORCA" && (forcaBruta1 - forcaBruta2) < 0 = -1
+    | (atributo) == "FORCA" && (forcaBruta1 - forcaBruta2) == 0 = desempata carta1 carta2
     | (atributo) == "VELOCIDADE" && (velocidade1 - velocidade2) > 0 = 1
     | (atributo) == "VELOCIDADE" && (velocidade1 - velocidade2) < 0 = -1
     | (atributo) == "VELOCIDADE" && (velocidade1 - velocidade2) == 0 = desempata carta1 carta2

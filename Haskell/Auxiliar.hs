@@ -1,6 +1,5 @@
 module Auxiliar where
 import qualified Carta as Carta
-import qualified Pilha as Pilha
 import System.IO.Unsafe(unsafeDupablePerformIO)
 import System.Random
 import Data.List.Split
@@ -9,7 +8,7 @@ exibeLetreiro :: String
 exibeLetreiro = unsafeDupablePerformIO (readFile "letreiro.txt")
 
 atributos :: String
-atributos = "[VITALIDADE | INTELIGENCIA | FORCA_BRUTA | VELOCIDADE | HABILIDADE]"
+atributos = "[VITALIDADE | INTELIGENCIA | FORCA | VELOCIDADE | HABILIDADE]"
 
 leAtributo :: IO String
 leAtributo = do
@@ -30,7 +29,7 @@ escolherAtributoAuxiliar :: Int -> Int -> Int -> Int -> Int -> String
 escolherAtributoAuxiliar vit int for vel hab 
   | vit >= max (max int for) (max vel hab ) = "VITALIDADE"
   | int >= max  for (max vel hab) = "INTELIGENCIA"
-  | for >= max vel hab = "FORCA_BRUTA"
+  | for >= max vel hab = "FORCA"
   | vel >= hab = "VELOCIDADE"
   | otherwise = "HABILIDADE"
   
@@ -39,18 +38,11 @@ verificaAtributo :: String -> Bool
 verificaAtributo atributo 
   | atributo == "VITALIDADE" = True
   | atributo == "INTELIGENCIA" = True
-  | atributo == "FORCA_BRUTA" = True
+  | atributo == "FORCA" = True
   | atributo == "VELOCIDADE" = True
   | atributo == "HABILIDADE" = True
   | otherwise = False
 
-iniciarPilha :: [Carta.Carta] -> Pilha.Stack Carta.Carta
-iniciarPilha lista = iniciarPilhaAuxiliar lista Pilha.create
-
-iniciarPilhaAuxiliar :: [Carta.Carta] -> Pilha.Stack Carta.Carta -> Pilha.Stack Carta.Carta
-iniciarPilhaAuxiliar lista pilha 
-  |null lista = pilha
-  |otherwise = iniciarPilhaAuxiliar (tail lista) (Pilha.push (head lista) pilha)
 
 iniciarCartasHerois :: [Carta.Carta]
 iniciarCartasHerois = do
