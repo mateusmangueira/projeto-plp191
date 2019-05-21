@@ -138,9 +138,6 @@ iniciarCartasViloes = do
     let lista_cartas = ((map (mapeiaCarta 0)) (lista))
     return lista_cartas !! 0 
 
-
---Funcao para imprimir uma lista recursivamente
---imprimeLista :: [Carta.Carta] -> String
    
 mapeiaCarta :: Int -> [String] -> Carta.Carta
 mapeiaCarta posicao lista =

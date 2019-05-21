@@ -13,19 +13,48 @@ main = do
 opcoesMenu :: String
 opcoesMenu = "\nEscolha uma Opcão: \n1) Jogar \n2) Visualizar Baralhos \n3) Regras \n4) Sair"
 
-menuVisualizaBaralho :: IO()
-menuVisualizaBaralho = do
+menuVisualizaBaralho :: [Carta.Carta] -> [Carta.Carta] -> IO()
+menuVisualizaBaralho listaHerois listaViloes = do
   putStrLn("\nVocê deseja visualizar qual baralho: \n1) Heróis \n2) Vilões")
   deck <- getLine
-  if(deck == "1") then do
-      putStrLn("Funcao para imprimir lista de herois")
-    --putStrLn(Auxiliar.imprimeLista listaHerois)
+  if(deck == "1") then do 
+    putStrLn(Carta.descricaoCarta (listaHerois !! 0))
+    putStrLn(Carta.descricaoCarta (listaHerois !! 1))
+    putStrLn(Carta.descricaoCarta (listaHerois !! 2))
+    putStrLn(Carta.descricaoCarta (listaHerois !! 3))
+    putStrLn(Carta.descricaoCarta (listaHerois !! 4))
+    putStrLn(Carta.descricaoCarta (listaHerois !! 5))
+    putStrLn(Carta.descricaoCarta (listaHerois !! 6))
+    putStrLn(Carta.descricaoCarta (listaHerois !! 7))
+    putStrLn(Carta.descricaoCarta (listaHerois !! 8))
+    putStrLn(Carta.descricaoCarta (listaHerois !! 9))
+    putStrLn(Carta.descricaoCarta (listaHerois !! 10))
+    putStrLn(Carta.descricaoCarta (listaHerois !! 11))
+    putStrLn(Carta.descricaoCarta (listaHerois !! 12))
+    putStrLn(Carta.descricaoCarta (listaHerois !! 13))
+    putStrLn(Carta.descricaoCarta (listaHerois !! 14))
+    menuInicial
+    
   else if(deck == "2") then do
-       putStrLn("Funcao para imprimir lista de viloes")
-     --putStrLn(Auxiliar.imprimeLista listaViloes)
+    putStrLn(Carta.descricaoCarta (listaViloes !! 0))
+    putStrLn(Carta.descricaoCarta (listaViloes !! 1))
+    putStrLn(Carta.descricaoCarta (listaViloes !! 2))
+    putStrLn(Carta.descricaoCarta (listaViloes !! 3))
+    putStrLn(Carta.descricaoCarta (listaViloes !! 4))
+    putStrLn(Carta.descricaoCarta (listaViloes !! 5))
+    putStrLn(Carta.descricaoCarta (listaViloes !! 6))
+    putStrLn(Carta.descricaoCarta (listaViloes !! 7))
+    putStrLn(Carta.descricaoCarta (listaViloes !! 8))
+    putStrLn(Carta.descricaoCarta (listaViloes !! 9))
+    putStrLn(Carta.descricaoCarta (listaViloes !! 10))
+    putStrLn(Carta.descricaoCarta (listaViloes !! 11))
+    putStrLn(Carta.descricaoCarta (listaViloes !! 12))
+    putStrLn(Carta.descricaoCarta (listaViloes !! 13))
+    putStrLn(Carta.descricaoCarta (listaViloes !! 14))
+    menuInicial
   else do 
     putStrLn("Digite uma opção válida.")
-    menuVisualizaBaralho
+    menuVisualizaBaralho listaHerois listaViloes
 
 menuMostraRegras :: IO()
 menuMostraRegras = do
@@ -74,7 +103,9 @@ menuInicial = do
       
     else if (opcao == "2") then do
       clearScreen
-      menuVisualizaBaralho
+      let cartasHerois = Auxiliar.iniciarCartasHerois
+      let cartaViloes = Auxiliar.iniciarCartasViloes
+      menuVisualizaBaralho cartasHerois cartaViloes
 
     else if (opcao == "3") then do
       clearScreen
