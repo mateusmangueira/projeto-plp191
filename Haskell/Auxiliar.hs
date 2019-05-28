@@ -4,6 +4,8 @@ import System.IO.Unsafe(unsafeDupablePerformIO)
 import System.Random
 import Data.List.Split
 
+removeCarta lista item = [g | g <- lista, g/= item ]
+
 exibeLetreiro :: String
 exibeLetreiro = unsafeDupablePerformIO (readFile "letreiro.txt")
 
@@ -15,34 +17,18 @@ leAtributo = do
   atributo <- getLine
   if (verificaAtributo atributo) then return atributo else leAtributo
   
-escolheAtributo :: Carta.Carta -> String
-escolheAtributo carta = do
-  let vit = Carta.vitalidade carta
-  let int = Carta.inteligencia carta
-  let for = Carta.forcaBruta carta
-  let vel = Carta.velocidade carta
-  let hab = Carta.habilidade carta
 
-  escolherAtributoAuxiliar vit int for vel hab
-  
-escolherAtributoAuxiliar :: Int -> Int -> Int -> Int -> Int -> String
-escolherAtributoAuxiliar vit int for vel hab 
-  | vit >= max (max int for) (max vel hab ) = "VITALIDADE"
-  | int >= max  for (max vel hab) = "INTELIGENCIA"
-  | for >= max vel hab = "FORCA"
-  | vel >= hab = "VELOCIDADE"
-  | otherwise = "HABILIDADE"
-  
-
-
-
-escolheCarta :: [Carta.Carta] -> Carta.Carta-> IO()
-escolheCarta deck cartaBatalha = do
+escolheCarta :: [Carta.Carta] -> [Carta.Carta] -> Int -> Int -> Int -> IO()
+escolheCarta _ _ 0 pontos1 pontos2 
+  | pontos1 > pontos2 = putStrLn("Jogador 1 Venceu")
+  | pontos1 < pontos2 = putStrLn("Máquina Venceu")
+  | otherwise = putStrLn("Empate")
+escolheCarta deck deck2 rodadas pontos1 pontos2 = do
+  let cartaBatalha = deck2 !! 0
   let carta1 = deck !! 0
   let carta2 = deck !! 1
   let carta3 = deck !! 2
 
-      
   putStrLn("Primeira Carta\n" ++ Carta.descricaoCarta(carta1))
   putStrLn("Segunda Carta\n" ++ Carta.descricaoCarta(carta2))
   putStrLn("Terceira Carta\n" ++ Carta.descricaoCarta(carta3))
@@ -52,22 +38,24 @@ escolheCarta deck cartaBatalha = do
   escolha <- getLine
   if (escolha == "1") then do
     putStrLn("\nA carta escolhida foi: \n" ++ Carta.descricaoCarta(carta1))
+    putStrLn("\nTurnos restantes: \n" ++ show rodadas)
     putStrLn("Agora digite seu atributo para batalha: " ++ Auxiliar.atributos)
     atributo <- Auxiliar.leAtributo
     let comparador = Carta.compara atributo carta1 cartaBatalha
     if (comparador == 1) then do
       putStrLn ("")
-      putStrLn ("CARTA MAQUINA")
+      putStrLn ("CARTA MÁQUINA")
       putStrLn(Carta.descricaoCarta (cartaBatalha))
       putStrLn ("VOCE VENCEU O TURNO")
+      escolheCarta (removeCarta deck carta1) (removeCarta deck2 cartaBatalha) (rodadas - 1) (pontos1 + 1) pontos2
     
     else do
       putStrLn ("")
-      putStrLn ("CARTA MAQUINA")
+      putStrLn ("CARTA MÁQUINA")
       putStrLn(Carta.descricaoCarta (cartaBatalha))
-      putStrLn ("MAQUINA VENCEU O TURNO")
-      --COLOCAR OS PONTOS NO PLAYER OU NA MAQUINA, CASO SEJA SUPER COLOCA 2 PONTOS
-      --FALTA REMOVER CARTAS QUE BATALHARAM DAS LISTAS DE HEROIS E VILOES
+      putStrLn ("MÁQUINA VENCEU O TURNO")
+      escolheCarta (removeCarta deck carta1) (removeCarta deck2 cartaBatalha) (rodadas - 1) pontos1 (pontos2 + 1) 
+      
 
     else if (escolha == "2") then do
         putStrLn("\nA carta escolhida foi: \n" ++ Carta.descricaoCarta(carta2))
@@ -76,19 +64,17 @@ escolheCarta deck cartaBatalha = do
         let comparador = Carta.compara atributo carta2 cartaBatalha
         if (comparador == 1) then do
           putStrLn ("")
-          putStrLn ("CARTA MAQUINA")
+          putStrLn ("CARTA MÁQUINA")
           putStrLn(Carta.descricaoCarta (cartaBatalha))
           putStrLn ("VOCE VENCEU O TURNO")
-          --COLOCAR OS PONTOS NO PLAYER OU NA MAQUINA, CASO SEJA SUPER COLOCA 2 PONTOS
-          --FALTA REMOVER CARTAS QUE BATALHARAM DAS LISTAS DE HEROIS E VILOES
+          escolheCarta (removeCarta deck carta2) (removeCarta deck2 cartaBatalha) (rodadas - 1) (pontos1 + 1) pontos2
         
         else do
           putStrLn ("")
-          putStrLn ("CARTA MAQUINA")
+          putStrLn ("CARTA MÁQUINA")
           putStrLn(Carta.descricaoCarta (cartaBatalha))
-          putStrLn ("MAQUINA VENCEU O TURNO")
-          --COLOCAR OS PONTOS NO PLAYER OU NA MAQUINA, CASO SEJA SUPER COLOCA 2 PONTOS
-          --FALTA REMOVER CARTAS QUE BATALHARAM DAS LISTAS DE HEROIS E VILOES
+          putStrLn ("MÁQUINA VENCEU O TURNO")
+          escolheCarta (removeCarta deck carta2) (removeCarta deck2 cartaBatalha) (rodadas - 1) pontos1 (pontos2 + 1)
 
     else if (escolha == "3") then do
     putStrLn("\nA carta escolhida foi: \n" ++ Carta.descricaoCarta(carta3))
@@ -97,22 +83,19 @@ escolheCarta deck cartaBatalha = do
     let comparador = Carta.compara atributo carta3 cartaBatalha
     if (comparador == 1) then do
       putStrLn ("")
-      putStrLn ("CARTA MAQUINA")
+      putStrLn ("CARTA MÁQUINA")
       putStrLn(Carta.descricaoCarta (cartaBatalha))
       putStrLn ("VOCE VENCEU O TURNO")
-      --COLOCAR OS PONTOS NO PLAYER OU NA MAQUINA, CASO SEJA SUPER COLOCA 2 PONTOS
-      --FALTA REMOVER CARTAS QUE BATALHARAM DAS LISTAS DE HEROIS E VILOES
+      escolheCarta (removeCarta deck carta3) (removeCarta deck2 cartaBatalha) (rodadas - 1) (pontos1 + 1) pontos2
     
     else do
       putStrLn ("")
-      putStrLn ("CARTA MAQUINA")
+      putStrLn ("CARTA MÁQUINA")
       putStrLn(Carta.descricaoCarta (cartaBatalha))
-      putStrLn ("MAQUINA VENCEU O TURNO")
-      --COLOCAR OS PONTOS NO PLAYER OU NA MAQUINA, CASO SEJA SUPER COLOCA 2 PONTOS
-      --FALTA REMOVER CARTAS QUE BATALHARAM DAS LISTAS DE HEROIS E VILOES
+      putStrLn ("MÁQUINA VENCEU O TURNO")
+      escolheCarta (removeCarta deck carta3) (removeCarta deck2 cartaBatalha) (rodadas - 1) pontos1 (pontos2 + 1)
 
-  else do putStrLn("entrada invalida")
-
+  else do putStrLn("Entrada Inválida")
 
 verificaAtributo :: String -> Bool
 verificaAtributo atributo 
@@ -122,7 +105,6 @@ verificaAtributo atributo
   | atributo == "VELOCIDADE" = True
   | atributo == "HABILIDADE" = True
   | otherwise = False
-
 
 iniciarCartasHerois :: [Carta.Carta]
 iniciarCartasHerois = do
@@ -138,7 +120,6 @@ iniciarCartasViloes = do
     let lista_cartas = ((map (mapeiaCarta 0)) (lista))
     return lista_cartas !! 0 
 
-   
 mapeiaCarta :: Int -> [String] -> Carta.Carta
 mapeiaCarta posicao lista =
   Carta.Carta{Carta.nome = (lista) !! 0, 

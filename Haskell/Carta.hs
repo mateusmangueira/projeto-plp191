@@ -1,25 +1,22 @@
 module Carta where
 
   data Carta = Carta {nome :: String, vitalidade :: Int, inteligencia :: Int, forcaBruta :: Int, velocidade :: Int, habilidade :: Int, especial :: Bool
-                           } deriving (Show)  
+                           } deriving (Show, Eq)
                             
   descricaoCarta:: Carta -> String
   descricaoCarta (Carta {nome = nom, vitalidade = vit,
   inteligencia = int, forcaBruta = for, velocidade = vel, habilidade = hab, especial = esp}) = 
                                                   "Nome: " ++ nom ++ "\n" ++
                                                   "Vitalidade: " ++ show(vit) ++ "\n" ++
-                                                  "Inteligencia: " ++ show(int) ++ "\n" ++
-                                                  "Forca: " ++ show(for) ++ "\n" ++
+                                                  "Inteligência: " ++ show(int) ++ "\n" ++
+                                                  "Força: " ++ show(for) ++ "\n" ++
                                                   "Velocidade: " ++ show(vel) ++ "\n" ++
                                                   "Habilidade: " ++  show(hab) ++ "\n" ++
                                                   if esp then "CARTA ESPECIAL\n" else ""
-  
-  
                                                   
   ehSuper :: Carta -> Bool
   ehSuper carta = ehSuper carta
   
-  --Ver como sera o metodo de desempate
   desempata :: Carta -> Carta -> Int
   desempata carta1 carta2 = if (especial carta1) < (especial carta2) then 1 else -1 
   

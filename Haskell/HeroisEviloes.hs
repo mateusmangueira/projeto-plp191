@@ -4,7 +4,6 @@ import Control.Concurrent
 import System.Console.ANSI
 import System.Random.Shuffle
 
-
 main :: IO()
 main = do
   putStrLn (Auxiliar.exibeLetreiro)
@@ -13,44 +12,34 @@ main = do
 opcoesMenu :: String
 opcoesMenu = "\nEscolha uma Opcão: \n1) Jogar \n2) Visualizar Baralhos \n3) Regras \n4) Sair"
 
+visualizaDeck :: [Carta.Carta] -> IO()
+visualizaDeck deck = do
+    putStrLn(Carta.descricaoCarta (deck !! 0))
+    putStrLn(Carta.descricaoCarta (deck !! 1))
+    putStrLn(Carta.descricaoCarta (deck !! 2))
+    putStrLn(Carta.descricaoCarta (deck !! 3))
+    putStrLn(Carta.descricaoCarta (deck !! 4))
+    putStrLn(Carta.descricaoCarta (deck !! 5))
+    putStrLn(Carta.descricaoCarta (deck !! 6))
+    putStrLn(Carta.descricaoCarta (deck !! 7))
+    putStrLn(Carta.descricaoCarta (deck !! 8))
+    putStrLn(Carta.descricaoCarta (deck !! 9))
+    putStrLn(Carta.descricaoCarta (deck !! 10))
+    putStrLn(Carta.descricaoCarta (deck !! 11))
+    putStrLn(Carta.descricaoCarta (deck !! 12))
+    putStrLn(Carta.descricaoCarta (deck !! 13))
+    putStrLn(Carta.descricaoCarta (deck !! 14))
+
 menuVisualizaBaralho :: [Carta.Carta] -> [Carta.Carta] -> IO()
 menuVisualizaBaralho listaHerois listaViloes = do
   putStrLn("\nVocê deseja visualizar qual baralho: \n1) Heróis \n2) Vilões")
   deck <- getLine
   if(deck == "1") then do 
-    putStrLn(Carta.descricaoCarta (listaHerois !! 0))
-    putStrLn(Carta.descricaoCarta (listaHerois !! 1))
-    putStrLn(Carta.descricaoCarta (listaHerois !! 2))
-    putStrLn(Carta.descricaoCarta (listaHerois !! 3))
-    putStrLn(Carta.descricaoCarta (listaHerois !! 4))
-    putStrLn(Carta.descricaoCarta (listaHerois !! 5))
-    putStrLn(Carta.descricaoCarta (listaHerois !! 6))
-    putStrLn(Carta.descricaoCarta (listaHerois !! 7))
-    putStrLn(Carta.descricaoCarta (listaHerois !! 8))
-    putStrLn(Carta.descricaoCarta (listaHerois !! 9))
-    putStrLn(Carta.descricaoCarta (listaHerois !! 10))
-    putStrLn(Carta.descricaoCarta (listaHerois !! 11))
-    putStrLn(Carta.descricaoCarta (listaHerois !! 12))
-    putStrLn(Carta.descricaoCarta (listaHerois !! 13))
-    putStrLn(Carta.descricaoCarta (listaHerois !! 14))
+    visualizaDeck listaHerois
     menuInicial
     
   else if(deck == "2") then do
-    putStrLn(Carta.descricaoCarta (listaViloes !! 0))
-    putStrLn(Carta.descricaoCarta (listaViloes !! 1))
-    putStrLn(Carta.descricaoCarta (listaViloes !! 2))
-    putStrLn(Carta.descricaoCarta (listaViloes !! 3))
-    putStrLn(Carta.descricaoCarta (listaViloes !! 4))
-    putStrLn(Carta.descricaoCarta (listaViloes !! 5))
-    putStrLn(Carta.descricaoCarta (listaViloes !! 6))
-    putStrLn(Carta.descricaoCarta (listaViloes !! 7))
-    putStrLn(Carta.descricaoCarta (listaViloes !! 8))
-    putStrLn(Carta.descricaoCarta (listaViloes !! 9))
-    putStrLn(Carta.descricaoCarta (listaViloes !! 10))
-    putStrLn(Carta.descricaoCarta (listaViloes !! 11))
-    putStrLn(Carta.descricaoCarta (listaViloes !! 12))
-    putStrLn(Carta.descricaoCarta (listaViloes !! 13))
-    putStrLn(Carta.descricaoCarta (listaViloes !! 14))
+    visualizaDeck listaViloes
     menuInicial
   else do 
     putStrLn("Digite uma opção válida.")
@@ -72,9 +61,6 @@ menuMostraRegras = do
   putStrLn("")
   menuInicial
 
-
- 
-
 menuInicial :: IO()
 menuInicial = do
     putStrLn(opcoesMenu)
@@ -90,17 +76,13 @@ menuInicial = do
       putStrLn ("Você deseja jogar com:  \n1) Heróis \n2) Vilões")
       baralho <- getLine
       if (baralho == "1") then do
-        let cartaBatalha = deckViloes !! 0
-        Auxiliar.escolheCarta deckHerois cartaBatalha
+        Auxiliar.escolheCarta deckHerois deckViloes 13 0 0
       else if( baralho == "2") then do
-        let cartaBatalha = deckHerois !! 0
-        Auxiliar.escolheCarta deckViloes cartaBatalha
+        Auxiliar.escolheCarta deckViloes deckHerois 13 0 0
       else do
-        putStrLn("Entrada invalida.")
+        putStrLn("Entrada Inválida.")
         menuInicial
         
-    
-      
     else if (opcao == "2") then do
       clearScreen
       let cartasHerois = Auxiliar.iniciarCartasHerois
@@ -113,4 +95,3 @@ menuInicial = do
 
     else if (opcao == "4") then clearScreen
         else menuInicial
-
