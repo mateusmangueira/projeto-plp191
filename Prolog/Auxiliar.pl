@@ -3,15 +3,15 @@
 iniciaCartaHerois(Carta) :-
     open('herois.txt', read, Str),
     read_file(Str,Cartas),
-    random(0,16),
-    map(mapeiaCartas,Cartas,Carta),
+    random(0,16,0),
+    map(0,mapeiaCartas,Cartas,Carta),
     close(Str).
 
 iniciaCartaViloes(Carta) :-
     open('viloes.txt', read, Str),
     read_file(Str,Cartas),
-    random(0,16),
-    map(mapeiaCartas,Cartas,Carta),
+    random(0,16,0),
+    map(0,mapeiaCartas,Cartas,Carta),
     close(Str.)
 
 map(Index,FunctionName,[H|T],[NH|NT]):-
@@ -29,7 +29,7 @@ read_file(Stream,[X|L]) :-
     atomic_list_concat(X,' ', String),
     read_file(Stream,L), !.
 
-mapeiaCartas(List_String,Carta) :-
+mapeiaCartas(0,List_String,Carta) :-
         nth0(0, List_String, String),
         split_string(String, ',', ' ,', List),
         nth0(0, List, Nome),
