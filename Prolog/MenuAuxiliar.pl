@@ -3,8 +3,7 @@ exibeLetreiro :-
     read_file(Str,String),
     close(Str),
     nl,nl,
-    exibeNaTela(String),
-    shell(clear).
+    exibeNaTela(String).
 
 
 menuInicial :-
@@ -12,26 +11,25 @@ menuInicial :-
     write('2) Visualizar Baralhos'),nl,
     write('3) Regras'),nl,
     write('4) Sair'),nl,
-    write('Escolha uma Opcão: '),nl.
+    write('Escolha uma Opcão: ').
 
 
 visualizaBaralho :-
-    write("Metodo para visualizar baralhos....!")
+    write("Metodo para visualizar baralhos....!").
 
 exibeRegras :-
     shell(clear),
-    write('As regras do jogo são as seguintes:\n
-        ->O jogador e a máquina irão alternar turnos\n
-        ->O jogador puxa aleatoriamente 3 cartas das 15 do seu baralho\n
-        ->Escolhe 1 para colocar em combate\n
-        ->O mesmo serve para a máquina\n
-        ->As outras 2 nao escolhidas retornam ao deck\n
-        ->Em cada turno escolhe um atributo para a batalha\n
-        ->Marca 1 ponto quem tiver maior atributo\n
-        ->Cartas especiais concederá o dobro de pontos para o vencedor do turno.\n
-        ->As duas cartas que batalharam são removidas do jogo\n
-        ->Quando acabarem as cartas quem tiver mais ponto vence o jogo.'),nl,
-menu.
+    write('As regras do jogo são as seguintes:'),nl,
+    write('->O jogador e a máquina irão alternar turnos'), nl,
+    write('->O jogador puxa aleatoriamente 3 cartas das 15 do seu baralho'),nl,
+    write('->Escolhe 1 para colocar em combate'),nl,
+    write('->As outras 2 nao escolhidas retornam ao deck'),nl,
+    write('->Em cada turno escolhe um atributo para a batalha'),nl,
+    write('->Marca 1 ponto quem tiver maior atributo'),nl,
+    write('->Cartas especiais concederá o dobro de pontos para o vencedor do turno.'),nl,
+    write('->As duas cartas que batalharam são removidas do jogo'),nl,
+    write('->Quando acabarem as cartas quem tiver mais ponto vence o jogo.'),
+    menu.
 
 exibeNaTela([]).
 exibeNaTela([H|T]):- write(H),nl, exibeNaTela(T).

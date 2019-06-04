@@ -7,18 +7,14 @@ main :-
     exibeLetreiro,
     menu.
 
-iniciaJogo :-
-    write('Comeca a putaria aqui!').
-
 menu :-
-    shell(clear),
     menuInicial,
-    read_opcao(Opcao),
+    inputOpcao(Opcao),
     selecionaOpcao(Opcao).
 
-read_opcao(Opcao) :-
+inputOpcao(Opcao) :-
   read(Option),
-  (validaOpcao(Option) -> Opcao = Option ; read_opcao(Opcao)).
+  (validaOpcao(Option) -> Opcao = Option ; inputOpcao(Opcao)).
 
 validaOpcao(1).
 validaOpcao(2).
@@ -31,3 +27,7 @@ selecionaOpcao(2) :- visualizaBaralho.
 
 selecionaOpcao(3) :- exibeRegras.
 selecionaOpcao(4) :- halt(0).
+
+iniciaJogo :-
+    write('Comeca o jogo aqui!').
+

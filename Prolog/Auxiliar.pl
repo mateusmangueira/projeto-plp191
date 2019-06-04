@@ -12,7 +12,7 @@ iniciaCartaViloes(Carta) :-
     read_file(Str,Cartas),
     random(0,16,0),
     map(0,mapeiaCartas,Cartas,Carta),
-    close(Str.)
+    close(Str).
 
 map(Index,FunctionName,[H|T],[NH|NT]):-
    Function=..[FunctionName,Index,H,NH],
