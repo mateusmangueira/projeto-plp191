@@ -16,7 +16,8 @@ menuInicial :-
 
 
 visualizaBaralho :-
-    write("Metodo para visualizar baralhos....!").
+    write("Metodo para visualizar baralhos....!"),
+    menu.
 
 exibeRegras :-
     shell(clear),
@@ -29,7 +30,7 @@ exibeRegras :-
     write('->Marca 1 ponto quem tiver maior atributo'),nl,
     write('->Cartas especiais concederá o dobro de pontos para o vencedor do turno.'),nl,
     write('->As duas cartas que batalharam são removidas do jogo'),nl,
-    write('->Quando acabarem as cartas quem tiver mais ponto vence o jogo.'),
+    write('->Quando acabarem as cartas quem tiver mais ponto vence o jogo.'),nl,nl,
     menu.
 
 exibeNaTela([]).
