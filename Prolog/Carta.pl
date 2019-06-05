@@ -50,31 +50,26 @@ comparaCarta(Carta1,Carta2,Atributo,Comparador) :-
     string_equals(Atributo,'VELOCIDADE',Velocidade_eq),
     string_equals(Atributo,'HABILIDADE',Habilidade_eq),
 
-    //VITALIDADE//
     getVitalidade(Carta1,Vitalidade_1),
     number_string(Vitalidade1,Vitalidade_1),
     getVitalidade(Carta2,Vitalidade_2),
     number_string(Vitalidade2,Vitalidade_2),
 
-    //INTELIGENCIA//
     getInteligencia(Carta1,Inteligencia_1),
     number_string(Inteligencia1,Inteligencia_1),
     getInteligencia(Carta2,Inteligencia_2),
     number_string(Inteligencia2,Inteligencia_2),
 
-    //FORCA//
     getForca(Carta1,Forca_1),
     number_string(Forca1,Forca_1),
     getForca(Carta2,Forca_2),
     number_string(Forca2,Forca_2),
 
-    //VELOCIDADE//
     getVelocidade(Carta1,Velocidade_1),
     number_string(Velocidade1,Velocidade_1),
     getVelocidade(Carta2,Velocidade_2),
     number_string(Velocidade2,Velocidade_2),
 
-    //HABILIDADE//
     getHabilidade(Carta1,Habilidade_1),
     number_string(Habilidade1,Habilidade_1),
     getHabilidade(Carta2,Habilidade_2),
@@ -90,8 +85,6 @@ comparaCarta(Carta1,Carta2,Atributo,Comparador) :-
      (Velocidade_eq == 1) -> comparaCartaAuxiliar(Velocidade1,Velocidade2,Desempate,Comparador);
      (Habilidade_eq == 1) -> comparaCartaAuxiliar(Habilidade1,Habilidade2,Desempate,Comparador)).
     
-
-
 comparaCartaAuxiliar(Atributo1,Atributo2,Desempata,Comparador) :-
     Subtracao is Atributo1 - Atributo2,
    (Subtracao \= 0 -> Comparador is Subtracao ; Comparador is Desempata).
