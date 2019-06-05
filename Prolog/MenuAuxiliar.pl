@@ -4,6 +4,7 @@ exibeLetreiro :-
     close(Str),
     nl,nl,
     exibeNaTela(String).
+    
 
 
 menuInicial :-
@@ -32,4 +33,7 @@ exibeRegras :-
     menu.
 
 exibeNaTela([]).
-exibeNaTela([H|T]):- write(H),nl, exibeNaTela(T).
+
+exibeNaTela([H|T]):- 
+    write(H),nl, 
+    exibeNaTela(T).

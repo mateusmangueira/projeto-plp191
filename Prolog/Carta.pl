@@ -2,19 +2,17 @@ constroiCarta(Nome,Vitalidade,Inteligencia,Forca,Velocidade,Habilidade,Especial,
 
 getNome(carta(Nome,_,_,_,_,_,_),Nome).
 getVitalidade(carta(_,Vitalidade,_,_,_,_,_),Vitalidade).
-getInteligencia(carta(_,_,_Inteligencia,_,_,_)).
+getInteligencia(carta(_,_,Inteligencia,_,_,_),Inteligencia).
 getForca(carta(_,_,_,Forca,_,_,_),Forca).
 getVelocidade(carta(_,_,_,_,Velocidade,_,_),Velocidade).
-getHabilidade(carta(_,_,_,_,_,Habilidade,_,),Velocidade).
-getEspecial(carta(_,_,_,_,_,_,Especial),Especial.
-
-ehEspecial(carta(_,_,_,_,_,_,True))
+getHabilidade(carta(_,_,_,_,_,Habilidade,_),Habilidade).
+getEspecial(carta(_,_,_,_,_,_,Especial),Especial).
 
 descricaoCarta(Carta) :-
     write('') ,nl,
     getNome(Carta,Nome_),
     getVitalidade(Carta,Vitalidade_),
-    getInteligencia(Carta,Vitalidade_),
+    getInteligencia(Carta,Inteligencia_),
     getForca(Carta,Forca_),
     getVelocidade(Carta,Velocidade_),
     getHabilidade(Carta,Habilidade_),
@@ -34,6 +32,7 @@ descricaoCarta(Carta) :-
     write(Habilidade),nl,
     especial -> write('CARTA ESPECIAL') ; write('').
 
+ehEspecial(carta(_,_,_,_,_,_,1)).
 
 stringIgual(StringA,StringB,Equal) :-
     string_to_atom(StringA, Atom),
@@ -51,37 +50,35 @@ comparaCarta(Carta1,Carta2,Atributo,Comparador) :-
     string_equals(Atributo,'VELOCIDADE',Velocidade_eq),
     string_equals(Atributo,'HABILIDADE',Habilidade_eq),
 
-    //PEGANDO ATRIBUTOS: //
-
     //VITALIDADE//
     getVitalidade(Carta1,Vitalidade_1),
-    number_string(Vitalidade1, Vitalidade_1),
+    number_string(Vitalidade1,Vitalidade_1),
     getVitalidade(Carta2,Vitalidade_2),
-    number_string(Vitalidade2, Vitalidade_2),
+    number_string(Vitalidade2,Vitalidade_2),
 
     //INTELIGENCIA//
     getInteligencia(Carta1,Inteligencia_1),
-    number_string(Inteligencia1, Inteligencia_1),
+    number_string(Inteligencia1,Inteligencia_1),
     getInteligencia(Carta2,Inteligencia_2),
-    number_string(Inteligencia2, Inteligencia_2),
+    number_string(Inteligencia2,Inteligencia_2),
 
     //FORCA//
     getForca(Carta1,Forca_1),
     number_string(Forca1,Forca_1),
     getForca(Carta2,Forca_2),
-    number_string(Forca2,Forca_2)
+    number_string(Forca2,Forca_2),
 
     //VELOCIDADE//
     getVelocidade(Carta1,Velocidade_1),
-    number_string(Velocidade1, Velocidade_1),
+    number_string(Velocidade1,Velocidade_1),
     getVelocidade(Carta2,Velocidade_2),
-    number_string(Velocidade2, Velocidade_2)
+    number_string(Velocidade2,Velocidade_2),
 
     //HABILIDADE//
-    getHabilidade(Carta1, Habilidade_1),
-    number_string(Habilidade1, Habilidade_1),
-    getHabilidade(Carta2, Habilidade_2),
-    number_string(Habilidade2, Habilidade_2),
+    getHabilidade(Carta1,Habilidade_1),
+    number_string(Habilidade1,Habilidade_1),
+    getHabilidade(Carta2,Habilidade_2),
+    number_string(Habilidade2,Habilidade_2),
 
     getEspecial(Carta1,Especial1),
     getEspecial(Carta2,Especial2),
