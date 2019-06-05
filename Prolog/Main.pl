@@ -29,5 +29,6 @@ selecionaOpcao(3) :- exibeRegras.
 selecionaOpcao(4) :- halt(0).
 
 iniciaJogo :-
-    write('Comeca o jogo aqui!').
+   write('Comeca o jogo aqui!'),nl, 
+   halt(0).
 

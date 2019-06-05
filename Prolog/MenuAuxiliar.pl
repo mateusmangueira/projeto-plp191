@@ -16,7 +16,7 @@ menuInicial :-
 
 
 visualizaBaralho :-
-    write("Metodo para visualizar baralhos....!"),
+    write("Metodo para visualizar baralhos....!"),nl,
     menu.
 
 exibeRegras :-
