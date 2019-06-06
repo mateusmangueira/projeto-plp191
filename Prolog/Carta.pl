@@ -39,9 +39,82 @@ stringIgual(StringA,StringB,Equal) :-
     string_to_atom(StringB, Atom2),
     ((Atom == Atom2) -> Equal = 1; Equal = 0).
 
+
+build_acumulador_atributos(Cont,Ac_Vitalidade,Ac_Inteligencia,Ac_Forca,Ac_Velocidade,Ac_Habilidade,
+  acumulador_atributos(Cont,Ac_Vitalidade,Ac_Inteligencia,Ac_Forca,Ac_Velocidade,Ac_Habilidade)).
+
+getAcumuladorCont(acumulador_atributos(Cont,_,_,_,_,_),Cont).
+getAcumuladorVit(acumulador_atributos(_,Ac_Vitalidade,_,_,_,_),Ac_Vitalidade).
+getAcumuladorInt(acumulador_atributos(_,_,Ac_Inteligencia,_,_,_),Ac_Inteligencia).
+getAcumuladorFor(acumulador_atributos(_,_,_,Ac_Forca,_,_),Ac_Forca).
+getAcumuladorVel(acumulador_atributos(_,_,_,_,Ac_Velocidade,_),Ac_Velocidade).
+getAcumuladorHab(acumulador_atributos(_,_,_,_,_,Ac_Habilidade),Ac_Habilidade).
+
+
+getAcumuladorCont(acumulador_atributos(Cont,_,_,_,_,_),Cont).
+getAcumuladorVit(acumulador_atributos(_,Ac_Ataque,_,_,_,_),Ac_Ataque).
+getAcumuladorInt(acumulador_atributos(_,_,Ac_Defesa,_,_,_),Ac_Defesa).
+getAcumuladorFor(acumulador_atributos(_,_,_,Ac_Meio,_,_),Ac_Meio).
+getAcumuladorVel(acumulador_atributos(_,_,_,_,Ac_Titulos,_),Ac_Titulos).
+getAcumuladorHab(acumulador_atributos(_,_,_,_,_,Ac_Aparicoes),Ac_Aparicoes).
+
+
+update_acumulador(Acumulador,Carta,Acumulador2) :-
+  getAcumuladorCont(Acumulador,Cont),
+  getAcumuladorVit(Acumulador,Vit),
+  getAcumuladorInt(Acumulador,Int),
+  getAcumuladorFor(Acumulador,For),
+  getAcumuladorVel(Acumulador,Vel),
+  getAcumuladorHab(Acumulador,Hab),
+
+  getVitalidade(Carta,Vit_S),
+  number_string(Vit_,Vit_S),
+  getInteligencia(Carta,Int_S),
+  number_string(Int_,Int_S),
+  getForca(Carta,For_S),
+  number_string(For_,For_S),
+  getVelocidade(Carta,Vel_S),
+  number_string(Vel_,Vel_S),
+  getHabilidade(Carta,Hab_S),
+  number_string(Hab_,Hab_S),
+
+  Con is Cont + 1,
+  Vitalidade is Vit + Vit_,
+  Inteligencia is Int + Int_,
+  Forca is For + For_,
+  Velocidade is Vel + Vel_,
+  Habilidade is Hab + Hab_,
+
+  Acumulador2 = acumulador_atributos(Con,Vitalidade,Inteligencia,Forca,Velocidade,Habilidade).
+
+
+mediaVit(Acumulador,Media) :-
+   getAcumuladorVit(Acumulador,Vit),
+   getAcumuladorCont(Acumulador,Cont),
+   Media is Vit / Cont.
+
+mediaInt(Acumulador,Media) :-
+    getAcumuladorInt(Acumulador,Vit),
+    getAcumuladorCont(Acumulador,Cont),
+    Media is Vit / Cont.
+
+mediaFor(Acumulador,Media) :-
+    getAcumuladorFor(Acumulador,For),
+    getAcumuladorCont(Acumulador,Cont),
+    Media is For / Cont.
+
+mediaVel(Acumulador,Media) :-
+    getAcumuladorVel(Acumulador,Vel),
+    getAcumuladorCont(Acumulador,Cont),
+    Media is Vel / Cont.
+
+mediaHab(Acumulador,Media) :-
+    getAcumuladorHab(Acumulador,Hab),
+    getAcumuladorCont(Acumulador,Cont),
+    Media is Hab / Cont.
+
 desempata(StringA,StringB,Comparator) :-
     (StringA @< StringB) -> Comparator = 1 ; Comparator = -1.
-
 
 comparaCarta(Carta1,Carta2,Atributo,Comparador) :-
     string_equals(Atributo,'VITALIDADE',Vitalidade_eq),

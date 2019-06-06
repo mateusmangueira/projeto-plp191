@@ -14,6 +14,19 @@ iniciaCartaViloes(Carta) :-
     map(indexSuper,mapeiaCartas,Cartas,Carta),
     close(Str).
 
+iniciaPilha([H|T],Pilha1) :-
+    takeLista([H|T],Lista1),
+    stack(Lista1,Pilha1).
+   
+takeLista([H|T],[[NH|NT]]) :-
+    takeListaAux(0,[H|T],[NH|NT]).
+
+takeListaAux(16,_,_).
+takeListaAux(Index,[H|T],[NH|NT]) :-
+    Index_1 is Index + 1,
+    NH = H,
+    takeListaAux(Index_1,T,NT).
+
 map(Index,FunctionName,[H|T],[NH|NT]):-
    Function=..[FunctionName,Index,H,NH],
    call(Function),
