@@ -8,6 +8,7 @@ exibeLetreiro :-
 
 
 menuInicial :-
+    nl,
     write('1) Jogar'),nl,
     write('2) Visualizar Baralhos'),nl,
     write('3) Regras'),nl,
@@ -30,7 +31,7 @@ exibeRegras :-
     write('->Marca 1 ponto quem tiver maior atributo'),nl,
     write('->Cartas especiais concederá o dobro de pontos para o vencedor do turno.'),nl,
     write('->As duas cartas que batalharam são removidas do jogo'),nl,
-    write('->Quando acabarem as cartas quem tiver mais ponto vence o jogo.'),nl,nl,
+    write('->Quando acabarem as cartas quem tiver mais ponto vence o jogo.'),nl,
     menu.
 
 exibeNaTela([]).

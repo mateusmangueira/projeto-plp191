@@ -148,7 +148,7 @@ mostraCartaAux(2,_,Carta2) :- descricaoCarta(Carta2).
 criaJogo(Pilha1,Pilha2,Player_Inicia_Jogo,Acumulador) :-
     print_n_lines(2),
     iniciaCartasHerois(CartasHerois),
-    iniciaCartasViloes(CartasViloes)
+    iniciaCartasViloes(CartasViloes),
     random_permutation(CartasHerois, CartasHeroisEmbaralhas),
     random_permutation(CartasViloes, CartasViloesEmbaralhas),
     iniciaPilha(CartasHerois,PilhaHeroi),

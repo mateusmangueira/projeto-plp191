@@ -50,15 +50,6 @@ getAcumuladorFor(acumulador_atributos(_,_,_,Ac_Forca,_,_),Ac_Forca).
 getAcumuladorVel(acumulador_atributos(_,_,_,_,Ac_Velocidade,_),Ac_Velocidade).
 getAcumuladorHab(acumulador_atributos(_,_,_,_,_,Ac_Habilidade),Ac_Habilidade).
 
-
-getAcumuladorCont(acumulador_atributos(Cont,_,_,_,_,_),Cont).
-getAcumuladorVit(acumulador_atributos(_,Ac_Ataque,_,_,_,_),Ac_Ataque).
-getAcumuladorInt(acumulador_atributos(_,_,Ac_Defesa,_,_,_),Ac_Defesa).
-getAcumuladorFor(acumulador_atributos(_,_,_,Ac_Meio,_,_),Ac_Meio).
-getAcumuladorVel(acumulador_atributos(_,_,_,_,Ac_Titulos,_),Ac_Titulos).
-getAcumuladorHab(acumulador_atributos(_,_,_,_,_,Ac_Aparicoes),Ac_Aparicoes).
-
-
 update_acumulador(Acumulador,Carta,Acumulador2) :-
   getAcumuladorCont(Acumulador,Cont),
   getAcumuladorVit(Acumulador,Vit),
@@ -94,9 +85,9 @@ mediaVit(Acumulador,Media) :-
    Media is Vit / Cont.
 
 mediaInt(Acumulador,Media) :-
-    getAcumuladorInt(Acumulador,Vit),
+    getAcumuladorInt(Acumulador,Int),
     getAcumuladorCont(Acumulador,Cont),
-    Media is Vit / Cont.
+    Media is Int / Cont.
 
 mediaFor(Acumulador,Media) :-
     getAcumuladorFor(Acumulador,For),
