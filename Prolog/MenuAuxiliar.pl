@@ -5,8 +5,6 @@ exibeLetreiro :-
     nl,nl,
     exibeNaTela(String).
     
-
-
 menuInicial :-
     nl,
     write('1) Jogar'),nl,
@@ -17,7 +15,11 @@ menuInicial :-
 
 
 visualizaBaralho :-
-    write("Metodo para visualizar baralhos....!"),nl,
+    open('cartas.txt', read, Str),
+    read_file(Str,String),
+    close(Str),
+    nl,nl,
+    exibeNaTela(String),
     menu.
 
 exibeRegras :-

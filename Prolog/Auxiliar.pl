@@ -3,14 +3,14 @@
 iniciaCartaHerois(Carta) :-
     open('herois.txt', read, Str),
     read_file(Str,Cartas),
-    random(0,16,indexSuper),
+    random(1,15,indexSuper),
     map(indexSuper,mapeiaCartas,Cartas,Carta),
     close(Str).
 
 iniciaCartaViloes(Carta) :-
     open('viloes.txt', read, Str),
     read_file(Str,Cartas),
-    random(0,16,indexSuper),
+    random(1,15,indexSuper),
     map(indexSuper,mapeiaCartas,Cartas,Carta),
     close(Str).
 
