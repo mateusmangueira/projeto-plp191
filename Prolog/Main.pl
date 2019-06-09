@@ -31,12 +31,12 @@ selecionaOpcao(2) :- visualizaBaralho.
 selecionaOpcao(3) :- exibeRegras.
 selecionaOpcao(4) :- halt(0).
 
-iniciaJogo(_,[],_,Rodada) :- 
+iniciaJogo(_,[],_,_,Rodada) :- 
     number_string(Rodada,Rodada_String),
     string_concat('FIM DE JOGO PLAYER 1 VENCEU. TOTAL DE TURNOS: ',Rodada_String, jogadorVenceu),
     write(jogadorVenceu),nl.
 
-iniciaJogo([],_,_,Rodada) :- 
+iniciaJogo([],_,_,_,Rodada) :- 
       number_string(Rodada,Rodada_String),
       string_concat('FIM DE JOGO, MÁQUINA VENCEU! TOTAL DE TURNOS: ',Rodada_String, maquinaVenceu),
       write(maquinaVenceu),nl.
@@ -62,9 +62,7 @@ iniciaJogo(Pilha1,Pilha2,Player_Atual,Acumulador,Rodada) :-
     mostraCartaAux(Player_Atual,Carta1,Carta2),nl,
 
     checaEspecial(Player_Atual,Carta1,Carta2,eh_Especial,Comparador),
-    (eh_Especial == 1 -> Comp = Comparador 
-     ; escolheAtributo(Player_Atual,Atributo,Carta2,Acumulador),
-     comparadorAux(Player_Atual,Carta1,Carta2,Atributo,Comp)),nl,
+    (eh_Especial == 1 -> Comp = Comparador ; escolheAtributo(Player_Atual,Atributo,Carta2,Acumulador), comparadorAux(Player_Atual,Carta1,Carta2,Atributo,Comp)),nl,
 
     write('Carta Player Oponente: '),nl,
     mostraCartaAux(Player_Atual,Carta2,Carta1),nl,
@@ -83,8 +81,7 @@ trocaCartas(1,Pilha1,Pilha2,Pilha1_n,Pilha2_n) :-
         push(Top,Pilha1_Inverter,Pilha1_att),
         push(Removida,Pilha1_att,Pilha1_att2),
         reverse(Pilha1_att2,Pilha1_n).
-    
-    
+
 trocaCartas(2,Pilha1,Pilha2,Pilha1_n,Pilha2_n) :-
      pop(Top,Pilha2,Pilha2_Sem_Top),
      pop(Removida,Pilha1,Pilha1_n),
@@ -92,6 +89,7 @@ trocaCartas(2,Pilha1,Pilha2,Pilha1_n,Pilha2_n) :-
      push(Top,Pilha2_Inverter,Pilha2_att),
      push(Removida,Pilha2_att,Pilha2_att2),
      reverse(Pilha2_att2,Pilha2_n).
+    
 
 vencedor(1,Comp,Vencedor) :-(Comp > 0 -> write('PLAYER 1 VENCEDOR DO TURNO!'),nl,Vencedor is 1 ; write('PLAYER 2 VENCEDOR DO TURNO!'),nl,Vencedor is 2 ).
 vencedor(2,Comp,Vencedor) :-(Comp > 0 -> write('PLAYER 2 VENCEDOR DO TURNO!'),nl,Vencedor is 2 ; write('PLAYER 1 VENCEDOR DO TURNO!'),nl,Vencedor is 1 ).
@@ -101,19 +99,16 @@ comparadorAux(1,Carta1,Carta2,Atributo,Comparador) :- comparaCarta(Carta1,Carta2
 comparadorAux(2,Carta1,Carta2,Atributo,Comparador) :- comparaCarta(Carta2,Carta1,Atributo,Comparador).
 
 checaEspecial(1,Carta1,Carta2,Is,Comparador) :-
-    (ehEspecial(Carta1) -> Is = 1,
-    checaEspecialAux(Carta2,Comparador)
-; Is = 0).
+    (ehEspecial(Carta1) -> Is = 1, checaEspecialAux(Carta2,Comparador) ; Is = 0).
+
 checaEspecial(2,Carta1,Carta2,Is,Comparador) :-
-        (ehEspecial(Carta2) -> Is = 1,
-        checaEspecialAux(Carta1,Comparador)
-    ; Is = 0).
+        (ehEspecial(Carta2) -> Is = 1, checaEspecialAux(Carta1,Comparador) ; Is = 0).
 
 checaEspecialAux(Carta2,Comparador) :-
-    is_A(Carta2,Is),
-(Is == 1 -> Comparador = -1 ; Comparador = 1).
+    ehEspecial(Carta2,Is), (Is == 1 -> Comparador = -1 ; Comparador = 1).
 
 escolheAtributo(1,Atributo,_,_) :- esclheAtributoJogador(Atributo).
+
 escolheAtributo(2,Atributo,Carta2,Acumulador) :- 
     escolheAtributoMaquina(Carta2,Acumulador,Atributo),
     string_concat('Atributo Escolhido: ',Atributo,String),
@@ -162,15 +157,15 @@ criaJogo(Pilha1,Pilha2,Player_Inicia_Jogo,Acumulador) :-
 
 escolheAtributoMaquina(Carta,Acumulador,Atributo) :-
         getVitalidade(Carta,Vitalidade_),
-        number_string(Vitalidade, Vitalidade_),
+        number_string(Vitalidade,Vitalidade_),
         getInteligencia(Carta,Inteligencia_),
-        number_string(Inteligencia, Inteligencia_),
+        number_string(Inteligencia,Inteligencia_),
         getForca(Carta,Forca_),
-        number_string(Forca, Forca_),
+        number_string(Forca,Forca_),
         getVelocidade(Carta,Velocidade_),
-        number_string(Velocidade, Velocidade_),
+        number_string(Velocidade,Velocidade_),
         getHabilidade(Carta,Habilidade_),
-        number_string(Habilidade, Habilidade_),
+        number_string(Habilidade,Habilidade_),
         
        mediaVit(Acumulador,Media_Vit),
        mediaInt(Acumulador,Media_Int),
@@ -179,8 +174,8 @@ escolheAtributoMaquina(Carta,Acumulador,Atributo) :-
        mediaHab(Acumulador,Media_Hab),
 
        diferencaVit is Vitalidade - Media_Vit,
-       diferencaInt is Forca - Media_Int,
-       diferencaFor is Inteligencia - Media_For,
+       diferencaInt is Inteligencia - Media_Int,
+       diferencaFor is Forca - Media_For,
        diferencaVel is Velocidade - Media_Vel,
        diferencaHab is Habilidade - Media_Hab,
 
