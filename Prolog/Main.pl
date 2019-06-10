@@ -107,14 +107,14 @@ checaEspecial(2,Carta1,Carta2,Is,Comparador) :-
 checaEspecialAux(Carta2,Comparador) :-
     ehEspecial(Carta2,Is), (Is == 1 -> Comparador = -1 ; Comparador = 1).
 
-escolheAtributo(1,Atributo,_,_) :- esclheAtributoJogador(Atributo).
+escolheAtributo(1,Atributo,_,_) :- escolheAtributoJogador(Atributo).
 
 escolheAtributo(2,Atributo,Carta2,Acumulador) :- 
     escolheAtributoMaquina(Carta2,Acumulador,Atributo),
     string_concat('Atributo Escolhido: ',Atributo,String),
     write(String),nl.
 
-esclheAtributoJogador(Atributo) :-
+escolheAtributoJogador(Atributo) :-
     write('ESCOLHA UM ATRIBUTO: 1) VITALIDADE  2) INTELIGENCIA  3) FORCA  4) VELOCIDADE  5) HABILIDADE'),nl,
     leAtributo(Leitura),
     selecionaAtributo(Leitura,Atributo).
@@ -141,13 +141,10 @@ mostraCartaAux(2,_,Carta2) :- descricaoCarta(Carta2).
 
 
 criaJogo(Pilha1,Pilha2,Player_Inicia_Jogo,Acumulador) :-
-    print_n_lines(2),
-    iniciaCartaHerois(CartasHerois),
-    iniciaCartaViloes(CartasViloes),
-    random_permutation(CartasHerois, CartasHeroisEmbaralhas),
-    random_permutation(CartasViloes, CartasViloesEmbaralhas),
-    iniciaPilha(CartasHeroisEmbaralhas,Pilha1),
-    iniciaPilha(CartasViloesEmbaralhas,Pilha2),
+    imprimeLinha(2),
+    iniciaCarta(Cartas),
+    random_permutation(Cartas, CartasEmbaralhas),
+    iniciaPilha(CartasEmbaralhas,Pilha1,Pilha2),
     build_acumulador_atributos(1,0,0,0,0,0,Acumulador),
     random(1, 3, Player_Inicia_Jogo),
     string_concat('PLAYER ', Player_Inicia_Jogo, P_Inicia1),

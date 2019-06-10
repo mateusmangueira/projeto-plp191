@@ -1,22 +1,18 @@
 :- include('Carta.pl').
 
-iniciaCartaHerois(Carta) :-
-    open('herois.txt', read, Str),
+iniciaCarta(Carta) :-
+    open('arquivo.txt', read, Str),
     read_file(Str,Cartas),
-    random(1,15,indexSuper),
+    random(1,30,indexSuper),
     map(indexSuper,mapeiaCartas,Cartas,Carta),
     close(Str).
 
-iniciaCartaViloes(Carta) :-
-    open('viloes.txt', read, Str),
-    read_file(Str,Cartas),
-    random(1,15,indexSuper),
-    map(indexSuper,mapeiaCartas,Cartas,Carta),
-    close(Str).
-
-iniciaPilha([H|T],Pilha1) :-
+iniciaPilha([H|T],Pilha1,Pilha2) :-
+    reverse([H|T], Lista_Invertida),
     takeLista([H|T],Lista1),
-    stack(Lista1,Pilha1).
+    takeLista(Lista_Invertida,Lista2),
+    stack(Lista1,Pilha1),
+    stack(Lista2,Pilha2).
    
 takeLista([H|T],[[NH|NT]]) :-
     takeListaAux(0,[H|T],[NH|NT]).
@@ -54,15 +50,15 @@ mapeiaCartas(posicaoSuper,List_String,Carta) :-
         nth0(6, List, Especial),
         nth0(7, List, Index),
         number_string(Index_Number, Index),
-        eh_super(Index_Number,posicaoSuper,Especial),
+        eh_Super(Index_Number,posicaoSuper,Especial),
         constroiCarta(Nome,Vitalidade,Inteligencia,Forca,Velocidade,Habilidade,Especial,Carta).
 
 eh_Super(Index,IndexCarta,Super):- 
     (Index == IndexCarta -> Super = 1 ; Super = 0).
 
-print_n_lines(0):-!. 
-print_n_lines(X):- 
+imprimeLinha(0):-!. 
+imprimeLinha(X):- 
     integer(X), 
     Y is X - 1, 
     nl, 
-    print_n_lines(Y).
+    imprimeLinha(Y).
