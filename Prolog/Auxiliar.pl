@@ -50,10 +50,10 @@ mapeiaCartas(posicaoSuper,List_String,Carta) :-
         nth0(6, List, Especial),
         nth0(7, List, Index),
         number_string(Index_Number, Index),
-        eh_Super(Index_Number,posicaoSuper,Especial),
+        ehSuper(Index_Number,posicaoSuper,Especial),
         constroiCarta(Nome,Vitalidade,Inteligencia,Forca,Velocidade,Habilidade,Especial,Carta).
 
-eh_Super(Index,IndexCarta,Super):- 
+ehSuper(Index,IndexCarta,Super):- 
     (Index == IndexCarta -> Super = 1 ; Super = 0).
 
 imprimeLinha(0):-!. 
