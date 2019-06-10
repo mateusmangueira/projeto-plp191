@@ -40,17 +40,16 @@ stringIgual(StringA,StringB,Equal) :-
     ((Atom == Atom2) -> Equal = 1; Equal = 0).
 
 
-build_acumulador_atributos(Cont,Ac_Vitalidade,Ac_Inteligencia,Ac_Forca,Ac_Velocidade,Ac_Habilidade,
-  acumulador_atributos(Cont,Ac_Vitalidade,Ac_Inteligencia,Ac_Forca,Ac_Velocidade,Ac_Habilidade)).
+criaAcumulador(Cont,Ac_Vitalidade,Ac_Inteligencia,Ac_Forca,Ac_Velocidade,Ac_Habilidade, acumuladorAtributo(Cont,Ac_Vitalidade,Ac_Inteligencia,Ac_Forca,Ac_Velocidade,Ac_Habilidade)).
 
-getAcumuladorCont(acumulador_atributos(Cont,_,_,_,_,_),Cont).
-getAcumuladorVit(acumulador_atributos(_,Ac_Vitalidade,_,_,_,_),Ac_Vitalidade).
-getAcumuladorInt(acumulador_atributos(_,_,Ac_Inteligencia,_,_,_),Ac_Inteligencia).
-getAcumuladorFor(acumulador_atributos(_,_,_,Ac_Forca,_,_),Ac_Forca).
-getAcumuladorVel(acumulador_atributos(_,_,_,_,Ac_Velocidade,_),Ac_Velocidade).
-getAcumuladorHab(acumulador_atributos(_,_,_,_,_,Ac_Habilidade),Ac_Habilidade).
+getAcumuladorCont(acumuladorAtributo(Cont,_,_,_,_,_),Cont).
+getAcumuladorVit(acumuladorAtributo(_,Ac_Vitalidade,_,_,_,_),Ac_Vitalidade).
+getAcumuladorInt(acumuladorAtributo(_,_,Ac_Inteligencia,_,_,_),Ac_Inteligencia).
+getAcumuladorFor(acumuladorAtributo(_,_,_,Ac_Forca,_,_),Ac_Forca).
+getAcumuladorVel(acumuladorAtributo(_,_,_,_,Ac_Velocidade,_),Ac_Velocidade).
+getAcumuladorHab(acumuladorAtributo(_,_,_,_,_,Ac_Habilidade),Ac_Habilidade).
 
-update_acumulador(Acumulador,Carta,Acumulador2) :-
+atualizaAcumulador(Acumulador,Carta,Acumulador2) :-
   getAcumuladorCont(Acumulador,Cont),
   getAcumuladorVit(Acumulador,Vit),
   getAcumuladorInt(Acumulador,Int),
@@ -76,7 +75,7 @@ update_acumulador(Acumulador,Carta,Acumulador2) :-
   Velocidade is Vel + Vel_,
   Habilidade is Hab + Hab_,
 
-  Acumulador2 = acumulador_atributos(Con,Vitalidade,Inteligencia,Forca,Velocidade,Habilidade).
+  Acumulador2 = acumuladorAtributo(Con,Vitalidade,Inteligencia,Forca,Velocidade,Habilidade).
 
 
 mediaVit(Acumulador,Media) :-
