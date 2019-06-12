@@ -33,12 +33,12 @@ selecionaOpcao(4) :- halt(0).
 
 iniciaJogo(_,[],_,_,Rodada) :- 
     number_string(Rodada,RodadaString),
-    string_concat('FIM DE JOGO PLAYER VENCEU. TOTAL DE TURNOS: ',RodadaString,JogadorVenceu),
+    string_concat('FIM DE JOGO. PLAYER 1 VENCEU. TOTAL DE TURNOS: ',RodadaString,JogadorVenceu),
     write(JogadorVenceu),nl.
 
 iniciaJogo([],_,_,_,Rodada) :- 
       number_string(Rodada,RodadaString),
-      string_concat('FIM DE JOGO, MÁQUINA VENCEU! TOTAL DE TURNOS: ',RodadaString,MaquinaVenceu),
+      string_concat('FIM DE JOGO. MÁQUINA VENCEU! TOTAL DE TURNOS: ',RodadaString,MaquinaVenceu),
       write(MaquinaVenceu),nl.
 
 iniciaJogo(Pilha1,Pilha2,PlayerAtual,Acumulador,Rodada) :-
@@ -50,7 +50,7 @@ iniciaJogo(Pilha1,Pilha2,PlayerAtual,Acumulador,Rodada) :-
     number_string(PlayerAtual,PlayerString),
     
     nl,
-    write('PLACAR P1 '), write(Placar1), write(' X '), write(Placar2), write(' P2 - TURNO ATUAL: '),write(RodadaString),
+    write('PLACAR PLAYER 1 '), write(Placar1), write(' X '), write(Placar2), write(' PLACAR MÁQUINA - TURNO ATUAL: '),write(RodadaString),
     write(' - PLAYER ATUAL: '),write(PlayerString),
     nl,
 
@@ -65,22 +65,22 @@ iniciaJogo(Pilha1,Pilha2,PlayerAtual,Acumulador,Rodada) :-
     write('Nova Jogada'),nl,write('Carta Player '), write(PlayerString),nl,
     mostraCartaAux(PlayerAtual,Carta1,Carta2),nl,
 
-    sleep(4),
+    sleep(2),
 
     checaEspecial(PlayerAtual,Carta1,Carta2,Eh_Especial,Comparador),
     (Eh_Especial == 1 -> Comp = Comparador ; escolheAtributo(PlayerAtual,Atributo,Carta2,Acumulador), comparadorAux(PlayerAtual,Carta1,Carta2,Atributo,Comp)),nl,
 
-    sleep(3),
+    sleep(2),
 
     write('Carta Oponente: '),nl,
     mostraCartaAux(PlayerAtual,Carta2,Carta1),nl,
 
-    sleep(3),
+    sleep(2),
 
     vencedor(PlayerAtual,Comp,PlayerVencedor),
     trocaCartas(PlayerVencedor,Pilha1,Pilha2,Pilha1Nova,Pilha2Nova),
 
-    sleep(4),
+    sleep(2),
   
     RodadaNova is Rodada + 1,
 
@@ -103,8 +103,8 @@ trocaCartas(2,Pilha1,Pilha2,Pilha1Nova,Pilha2Nova) :-
      reverse(Pilha2Atualizada2,Pilha2Nova).
     
 
-vencedor(1,Comp,Vencedor) :-(Comp > 0 -> write('PLAYER 1 VENCEDOR DO TURNO!'),nl,Vencedor is 1 ; write('PLAYER 2 VENCEDOR DO TURNO!'),nl,Vencedor is 2 ).
-vencedor(2,Comp,Vencedor) :-(Comp > 0 -> write('PLAYER 2 VENCEDOR DO TURNO!'),nl,Vencedor is 2 ; write('PLAYER 1 VENCEDOR DO TURNO!'),nl,Vencedor is 1 ).
+vencedor(1,Comp,Vencedor) :-(Comp > 0 -> write('PLAYER 1 VENCEDOR DO TURNO!'),nl,Vencedor is 1 ; write('MÁQUINA VENCEDOR DO TURNO!'),nl,Vencedor is 2 ).
+vencedor(2,Comp,Vencedor) :-(Comp > 0 -> write('MÁQUINA VENCEDOR DO TURNO!'),nl,Vencedor is 2 ; write('PLAYER 1 VENCEDOR DO TURNO!'),nl,Vencedor is 1 ).
 
 comparadorAux(1,Carta1,Carta2,Atributo,Comparador) :- comparaCarta(Carta1,Carta2,Atributo,Comparador).
 comparadorAux(2,Carta1,Carta2,Atributo,Comparador) :- comparaCarta(Carta2,Carta1,Atributo,Comparador).
@@ -153,16 +153,18 @@ mostraCartaAux(2,_,Carta2) :- descricaoCarta(Carta2).
 criaJogo(Pilha1,Pilha2,PlayerIniciaJogo,Acumulador) :-
     imprimeLinha(2),
     iniciaCarta(Cartas),
-    random_permutation(Cartas, CartasEmbaralhadas),
+    write("Cartas Iniciadas."),
+    random_permutation(Cartas, CartasEmbaralhadas),nl,
     sleep(2),
     iniciaPilha(CartasEmbaralhadas,Pilha1,Pilha2),
+    write("Pilhas Iniciadas e Cartas Embaralhadas"),nl,
     criaAcumulador(1,0,0,0,0,0,Acumulador),
     sleep(2),
+    random(1, 2, PlayerIniciaJogo),
     string_concat('PLAYER ', PlayerIniciaJogo, PlayerInicia1),
     string_concat(PlayerInicia1,' INICIA O JOGO', PlayerInicia),
     write(PlayerInicia), nl,
     sleep(2).
-
 
 escolheAtributoMaquina(Carta,Acumulador,Atributo) :-
         getVitalidade(Carta,Vitalidade_),

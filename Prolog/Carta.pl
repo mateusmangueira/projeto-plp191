@@ -1,4 +1,4 @@
-constroiCarta(Nome,Vitalidade,Inteligencia,Forca,Velocidade,Habilidade,Especial,carta(Nome,Vitalidade,Inteligencia,Forca,Velocidade,Habilidade,Especial)).
+constroiCarta(Nome,Vitalidade,Inteligencia,Forca,Velocidade,Habilidade,EhEspecial,carta(Nome,Vitalidade,Inteligencia,Forca,Velocidade,Habilidade,EhEspecial)).
 
 getNome(carta(Nome,_,_,_,_,_,_),Nome).
 getVitalidade(carta(_,Vitalidade,_,_,_,_,_),Vitalidade).
@@ -6,7 +6,7 @@ getInteligencia(carta(_,_,Inteligencia,_,_,_),Inteligencia).
 getForca(carta(_,_,_,Forca,_,_,_),Forca).
 getVelocidade(carta(_,_,_,_,Velocidade,_,_),Velocidade).
 getHabilidade(carta(_,_,_,_,_,Habilidade,_),Habilidade).
-getEspecial(carta(_,_,_,_,_,_,Especial),Especial).
+getEspecial(carta(_,_,_,_,_,_,EhEspecial),EhEspecial).
 
 descricaoCarta(Carta) :-
     write('') ,nl,
@@ -16,7 +16,7 @@ descricaoCarta(Carta) :-
     getForca(Carta,Forca_),
     getVelocidade(Carta,Velocidade_),
     getHabilidade(Carta,Habilidade_),
-    especial = ehEspecial(Carta),
+    Especial = ehEspecial(Carta),
     string_concat('Nome: ', Nome_, Nome),
     string_concat('Vitalidade: ', Vitalidade_, Vitalidade),
     string_concat('Inteligencia: ', Inteligencia_, Inteligencia),
@@ -30,7 +30,7 @@ descricaoCarta(Carta) :-
     write(Forca),nl,
     write(Velocidade),nl,
     write(Habilidade),nl,
-    especial -> write('CARTA ESPECIAL') ; write('').
+    Especial -> write('CARTA ESPECIAL') ; write('').
 
 ehEspecial(carta(_,_,_,_,_,_,1)).
 
