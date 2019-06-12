@@ -3,8 +3,7 @@
 iniciaCarta(Carta) :-
     open('arquivo.txt', read, Str),
     read_file(Str,Cartas),
-    random(1,30,indexSuper),
-    map(indexSuper,mapeiaCartas,Cartas,Carta),
+    map(1,mapeiaCartas,Cartas,Carta),
     close(Str).
 
 iniciaPilha([H|T],Pilha1,Pilha2) :-
@@ -38,8 +37,8 @@ read_file(Stream,[X|L]) :-
     atomic_list_concat(X,' ', String),
     read_file(Stream,L), !.
 
-mapeiaCartas(posicaoSuper,List_String,Carta) :-
-        nth0(0, List_String, String),
+mapeiaCartas(PosicaoSuper,ListaString,Carta) :-
+        nth0(0, ListaString, String),
         split_string(String, ',', ' ,', List),
         nth0(0, List, Nome),
         nth0(1, List, Vitalidade),
@@ -48,9 +47,8 @@ mapeiaCartas(posicaoSuper,List_String,Carta) :-
         nth0(4, List, Velocidade),
         nth0(5, List, Habilidade),
         nth0(6, List, Especial),
-        nth0(7, List, Index),
-        number_string(Index_Number, Index),
-        ehSuper(Index_Number,posicaoSuper,Especial),
+        number_string(IndexNumber,Especial),
+        ehSuper(IndexNumber,PosicaoSuper,Especial),
         constroiCarta(Nome,Vitalidade,Inteligencia,Forca,Velocidade,Habilidade,Especial,Carta).
 
 ehSuper(Index,IndexCarta,Super):- 

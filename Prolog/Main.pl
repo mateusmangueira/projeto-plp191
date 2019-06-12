@@ -33,7 +33,7 @@ selecionaOpcao(4) :- halt(0).
 
 iniciaJogo(_,[],_,_,Rodada) :- 
     number_string(Rodada,RodadaString),
-    string_concat('FIM DE JOGO PLAYER 1 VENCEU. TOTAL DE TURNOS: ',RodadaString,JogadorVenceu),
+    string_concat('FIM DE JOGO PLAYER VENCEU. TOTAL DE TURNOS: ',RodadaString,JogadorVenceu),
     write(JogadorVenceu),nl.
 
 iniciaJogo([],_,_,_,Rodada) :- 
@@ -53,34 +53,46 @@ iniciaJogo(Pilha1,Pilha2,PlayerAtual,Acumulador,Rodada) :-
     write('PLACAR P1 '), write(Placar1), write(' X '), write(Placar2), write(' P2 - TURNO ATUAL: '),write(RodadaString),
     write(' - PLAYER ATUAL: '),write(PlayerString),
     nl,
+
+    sleep(1),
   
     top(Pilha1,Carta1),
     top(Pilha2,Carta2),
+
+    sleep(1),
     
     atualizaAcumulador(Acumulador,Carta2,NovoAcumulador),
     write('Nova Jogada'),nl,write('Carta Player '), write(PlayerString),nl,
     mostraCartaAux(PlayerAtual,Carta1,Carta2),nl,
 
+    sleep(4),
+
     checaEspecial(PlayerAtual,Carta1,Carta2,Eh_Especial,Comparador),
     (Eh_Especial == 1 -> Comp = Comparador ; escolheAtributo(PlayerAtual,Atributo,Carta2,Acumulador), comparadorAux(PlayerAtual,Carta1,Carta2,Atributo,Comp)),nl,
 
-    write('Carta Player Oponente: '),nl,
+    sleep(3),
+
+    write('Carta Oponente: '),nl,
     mostraCartaAux(PlayerAtual,Carta2,Carta1),nl,
+
+    sleep(3),
 
     vencedor(PlayerAtual,Comp,PlayerVencedor),
     trocaCartas(PlayerVencedor,Pilha1,Pilha2,Pilha1Nova,Pilha2Nova),
+
+    sleep(4),
   
     RodadaNova is Rodada + 1,
 
     iniciaJogo(Pilha1Nova,Pilha2Nova,PlayerVencedor,NovoAcumulador,RodadaNova).
 
 trocaCartas(1,Pilha1,Pilha2,Pilha1Nova,Pilha2Nova) :-
-        pop(Top,Pilha1,Pilha1Removida),
-        pop(Removida,Pilha2,Pilha2Nova),
-        reverse(Pilha1Removida, Pilha1Invertida),
-        push(Top,Pilha1Invertida,Pilha1Atualizada),
-        push(Removida,Pilha1Atualizada,Pilha1Atualizada2),
-        reverse(Pilha1Atualizada2,Pilha1Nova).
+    pop(Top,Pilha1,Pilha1Removida),
+    pop(Removida,Pilha2,Pilha2Nova),
+    reverse(Pilha1Removida, Pilha1Invertida),
+    push(Top,Pilha1Invertida,Pilha1Atualizada),
+    push(Removida,Pilha1Atualizada,Pilha1Atualizada2),
+    reverse(Pilha1Atualizada2,Pilha1Nova).
 
 trocaCartas(2,Pilha1,Pilha2,Pilha1Nova,Pilha2Nova) :-
      pop(Top,Pilha2,Pilha2Removida),
@@ -142,12 +154,14 @@ criaJogo(Pilha1,Pilha2,PlayerIniciaJogo,Acumulador) :-
     imprimeLinha(2),
     iniciaCarta(Cartas),
     random_permutation(Cartas, CartasEmbaralhadas),
+    sleep(2),
     iniciaPilha(CartasEmbaralhadas,Pilha1,Pilha2),
     criaAcumulador(1,0,0,0,0,0,Acumulador),
-    random(1, 3, PlayerIniciaJogo),
+    sleep(2),
     string_concat('PLAYER ', PlayerIniciaJogo, PlayerInicia1),
     string_concat(PlayerInicia1,' INICIA O JOGO', PlayerInicia),
-    write(PlayerInicia), nl.
+    write(PlayerInicia), nl,
+    sleep(2).
 
 
 escolheAtributoMaquina(Carta,Acumulador,Atributo) :-
