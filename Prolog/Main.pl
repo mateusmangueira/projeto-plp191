@@ -155,7 +155,7 @@ criaJogo(Pilha1,Pilha2,PlayerIniciaJogo,Acumulador) :-
     random_permutation(Cartas, CartasEmbaralhadas),
     iniciaPilha(CartasEmbaralhadas,Pilha1,Pilha2),
     criaAcumulador(1,0,0,0,0,0,Acumulador),
-    random(1, 3, PlayerIniciaJogo),
+    PlayerIniciaJogo is 1,
     string_concat('PLAYER ', PlayerIniciaJogo, PlayerInicia1),
     string_concat(PlayerInicia1,' INICIA O JOGO', PlayerInicia),
     write(PlayerInicia), nl,
