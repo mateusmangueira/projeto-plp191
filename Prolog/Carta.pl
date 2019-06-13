@@ -2,7 +2,7 @@ constroiCarta(Nome,Vitalidade,Inteligencia,Forca,Velocidade,Habilidade,EhEspecia
 
 getNome(carta(Nome,_,_,_,_,_,_),Nome).
 getVitalidade(carta(_,Vitalidade,_,_,_,_,_),Vitalidade).
-getInteligencia(carta(_,_,Inteligencia,_,_,_),Inteligencia).
+getInteligencia(carta(_,_,Inteligencia,_,_,_,_),Inteligencia).
 getForca(carta(_,_,_,Forca,_,_,_),Forca).
 getVelocidade(carta(_,_,_,_,Velocidade,_,_),Velocidade).
 getHabilidade(carta(_,_,_,_,_,Habilidade,_),Habilidade).
