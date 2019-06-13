@@ -77,7 +77,7 @@ iniciaJogo(Pilha1,Pilha2,PlayerAtual,Acumulador,Rodada) :-
 
     sleep(2),
 
-    vencedor(PlayerAtual,Comp,PlayerVencedor),
+    vencedor(PlayerAtual,Comp,PlayerVencedor,0),
     trocaCartas(PlayerVencedor,Pilha1,Pilha2,Pilha1Nova,Pilha2Nova),
 
     sleep(2),
@@ -102,7 +102,6 @@ trocaCartas(2,Pilha1,Pilha2,Pilha1Nova,Pilha2Nova) :-
      push(Removida,Pilha2Atualizada,Pilha2Atualizada2),
      reverse(Pilha2Atualizada2,Pilha2Nova).
     
-
 vencedor(1,Comp,Vencedor) :-(Comp > 0 -> write('PLAYER 1 VENCEDOR DO TURNO!'),nl,Vencedor is 1 ; write('MÁQUINA VENCEDOR DO TURNO!'),nl,Vencedor is 2 ).
 vencedor(2,Comp,Vencedor) :-(Comp > 0 -> write('MÁQUINA VENCEDOR DO TURNO!'),nl,Vencedor is 2 ; write('PLAYER 1 VENCEDOR DO TURNO!'),nl,Vencedor is 1 ).
 
@@ -113,7 +112,7 @@ checaEspecial(1,Carta1,Carta2,Is,Comparador) :-
     (ehEspecial(Carta1) -> Is = 1, checaEspecialAux(Carta2,Comparador) ; Is = 0).
 
 checaEspecial(2,Carta1,Carta2,Is,Comparador) :-
-        (ehEspecial(Carta2) -> Is = 1, checaEspecialAux(Carta1,Comparador) ; Is = 0).
+    (ehEspecial(Carta2) -> Is = 1, checaEspecialAux(Carta1,Comparador) ; Is = 0).
 
 checaEspecialAux(Carta2,Comparador) :-
     ehEspecial(Carta2,Is), (Is == 1 -> Comparador = -1 ; Comparador = 1).
@@ -122,7 +121,7 @@ escolheAtributo(1,Atributo,_,_) :- escolheAtributoJogador(Atributo).
 
 escolheAtributo(2,Atributo,Carta2,Acumulador) :- 
     escolheAtributoMaquina(Carta2,Acumulador,Atributo),
-    string_concat('Atributo Escolhido: ',Atributo,String),
+    string_concat('Atributo Escolhido: ', Atributo, String),
     write(String),nl.
 
 escolheAtributoJogador(Atributo) :-
@@ -139,13 +138,13 @@ selecionaAtributo(5,Atributo) :- Atributo = 'HABILIDADE'.
 
 leAtributo(Atributo) :-
     read(Read),
-    (valida_atributo(Read) -> Atributo = Read ; leAtributo(Atributo)).
+    (validaAtributo(Read) -> Atributo = Read ; leAtributo(Atributo)).
 
-valida_atributo(1).
-valida_atributo(2).
-valida_atributo(3).
-valida_atributo(4).
-valida_atributo(5).
+validaAtributo(1).
+validaAtributo(2).
+validaAtributo(3).
+validaAtributo(4).
+validaAtributo(5).
 
 mostraCartaAux(1,Carta1,_) :- descricaoCarta(Carta1).
 mostraCartaAux(2,_,Carta2) :- descricaoCarta(Carta2).
@@ -153,14 +152,10 @@ mostraCartaAux(2,_,Carta2) :- descricaoCarta(Carta2).
 criaJogo(Pilha1,Pilha2,PlayerIniciaJogo,Acumulador) :-
     imprimeLinha(2),
     iniciaCarta(Cartas),
-    write("Cartas Iniciadas."),
-    random_permutation(Cartas, CartasEmbaralhadas),nl,
-    sleep(2),
+    random_permutation(Cartas, CartasEmbaralhadas),
     iniciaPilha(CartasEmbaralhadas,Pilha1,Pilha2),
-    write("Pilhas Iniciadas e Cartas Embaralhadas"),nl,
     criaAcumulador(1,0,0,0,0,0,Acumulador),
-    sleep(2),
-    random(1, 2, PlayerIniciaJogo),
+    random(1, 3, PlayerIniciaJogo),
     string_concat('PLAYER ', PlayerIniciaJogo, PlayerInicia1),
     string_concat(PlayerInicia1,' INICIA O JOGO', PlayerInicia),
     write(PlayerInicia), nl,

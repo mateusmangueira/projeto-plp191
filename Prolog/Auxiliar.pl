@@ -3,7 +3,7 @@
 iniciaCarta(Carta) :-
     open('arquivo.txt', read, Str),
     read_file(Str,Cartas),
-    random(1,30,Index_Trunfo),
+    random(0,30,Index_Trunfo),
     map(Index_Trunfo,mapeiaCartas,Cartas,Carta),
     close(Str).
 
