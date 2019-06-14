@@ -34,7 +34,7 @@ descricaoCarta(Carta) :-
 
 ehEspecial(carta(_,_,_,_,_,_,1)).
 
-stringIgual(StringA,StringB,Equal) :-
+string_equals(StringA,StringB,Equal) :-
     string_to_atom(StringA, Atom),
     string_to_atom(StringB, Atom2),
     ((Atom == Atom2) -> Equal = 1; Equal = 0).
@@ -144,14 +144,13 @@ comparaCarta(Carta1,Carta2,Atributo,Comparador) :-
 
     (Vitalidade_eq == 1 -> comparaCartaAuxiliar(Vitalidade1,Vitalidade2,Desempate,Comparador);
      Inteligencia_eq == 1 -> comparaCartaAuxiliar(Inteligencia1,Inteligencia2,Desempate,Comparador);
-     (Forca_eq == 1) -> comparaCartaAuxiliar(Forca1,Forca2,Desempate,Comparador);
-     (Velocidade_eq == 1) -> comparaCartaAuxiliar(Velocidade1,Velocidade2,Desempate,Comparador);
-     (Habilidade_eq == 1) -> comparaCartaAuxiliar(Habilidade1,Habilidade2,Desempate,Comparador)).
+     Forca_eq == 1 -> comparaCartaAuxiliar(Forca1,Forca2,Desempate,Comparador);
+     Velocidade_eq == 1 -> comparaCartaAuxiliar(Velocidade1,Velocidade2,Desempate,Comparador);
+     Habilidade_eq == 1 -> comparaCartaAuxiliar(Habilidade1,Habilidade2,Desempate,Comparador)).
     
 comparaCartaAuxiliar(Atributo1,Atributo2,Desempata,Comparador) :-
     Subtracao is Atributo1 - Atributo2,
    (Subtracao \= 0 -> Comparador is Subtracao ; Comparador is Desempata).
-
 
 
 
