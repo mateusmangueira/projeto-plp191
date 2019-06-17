@@ -152,9 +152,12 @@ mostraCartaAux(2,_,Carta2) :- descricaoCarta(Carta2).
 
 criaJogo(Pilha1,Pilha2,PlayerIniciaJogo,Acumulador) :-
     imprimeLinha(2),
-    iniciaCarta(Cartas),
-    random_permutation(Cartas, CartasEmbaralhadas),
-    iniciaPilha(CartasEmbaralhadas,Pilha1,Pilha2),
+    iniciaCartaHerois(CartasHerois),
+    iniciaCartaViloes(CartasViloes),
+    random_permutation(CartasHerois, CartasHeroisEmbaralhadas),
+    random_permutation(CartasViloes, CartasViloesEmbaralhadas),
+    iniciaPilha(CartasHeroisEmbaralhadas,Pilha1),
+    iniciaPilha(CartasViloesEmbaralhadas,Pilha2),
     criaAcumulador(1,0,0,0,0,0,Acumulador),
     random(1, 3, PlayerIniciaJogo),
     string_concat('PLAYER ', PlayerIniciaJogo, PlayerInicia1),
