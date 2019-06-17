@@ -116,7 +116,7 @@ checaEspecial(2,Carta1,Carta2,Is,Comparador) :-
     (ehEspecial(Carta2) -> Is = 1, checaEspecialAux(Carta1,Comparador) ; Is = 0).
 
 checaEspecialAux(Carta2,Comparador) :-
-    ehEspecial(Carta2,Is), (Is == 1 -> Comparador = -1 ; Comparador = 1).
+    getEspecial(Carta2,Is), (Is == 1 -> Comparador = -1 ; Comparador = 1).
 
 escolheAtributo(1,Atributo,_,_) :- escolheAtributoJogador(Atributo).
 
